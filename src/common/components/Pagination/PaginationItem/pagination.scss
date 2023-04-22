@@ -1,0 +1,10 @@
+.page-link.active,
+.active > .page-link {
+    background-color: #ff0000;
+    border-color: #ff0000;
+}
+
+.pagination {
+    border: 1px solid transparent;
+    border-radius: none;
+}

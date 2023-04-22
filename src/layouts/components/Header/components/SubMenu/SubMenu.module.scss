@@ -1,0 +1,56 @@
+@use '../../../../../scss/' as *;
+.item {
+    // position: relative;
+    // font-size: 1.8rem;
+    // font-weight: 600;
+    // padding: 20px 0;
+    // margin: 200px 15px;
+    display: flex;
+    padding: 5px 0;
+    list-style: none;
+    font-weight: 600;
+    font-size: 1.8rem;
+
+    &::before {
+        position: absolute;
+        content: '';
+        right: 840px;
+        width: 6px;
+        height: 6px;
+        margin-top: 10px;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        background-color: #00c3ff;
+        -webkit-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        transform: translateY(-50%);
+        -webkit-transition: all 0.2s linear;
+        -moz-transition: all 0.2s linear;
+        -o-transition: all 0.2s linear;
+        -ms-transition: all 0.2s linear;
+        transition: all 0.2s linear;
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    &:hover {
+        color: var(--primary-color);
+        // padding-left: 15px;
+        // &::before {
+        //     right: 825px;
+        //     opacity: 1;
+        //     visibility: visible;
+        //     background-color: var(--primary);
+        // }
+    }
+    &:hover {
+        color: $primary-color;
+    }
+
+    // &.active::after,
+    // &:hover::after {
+    //     width: 100%;
+    //     color: $primary-color;
+    // }
+}

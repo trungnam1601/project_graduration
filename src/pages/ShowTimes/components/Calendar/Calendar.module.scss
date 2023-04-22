@@ -1,0 +1,16 @@
+@use '../../../../scss/' as *;
+.btn {
+    // border: 1px solid $primary-color;
+    color: $text-color;
+    padding: 10px 15px;
+    font-size: 1.8rem;
+    border-radius: 0;
+    background-color: transparent;
+    border: none;
+
+    &:hover,
+    &.active {
+        background-color: transparent;
+        color: $primary-color;
+    }
+}

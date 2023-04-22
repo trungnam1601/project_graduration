@@ -1,0 +1,14 @@
+@use './../../scss/' as *;
+.wrapper {
+    margin: $header-height 6rem 4rem 6rem;
+    .inner {
+        .calendar {
+            padding: 20px 0;
+            border-bottom: 2px solid $primary-color;
+        }
+
+        .list {
+            margin: 4rem 0 0 3rem;
+        }
+    }
+}

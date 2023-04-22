@@ -1,0 +1,39 @@
+@use './../../scss/' as *;
+.wrapper {
+    margin: $header-height 6rem 4rem 6rem;
+
+    h2 {
+        padding: 2rem 0;
+        text-align: center;
+        font-size: 40px;
+        font-weight: 600;
+        align-items: center;
+    }
+    .inner {
+        padding-bottom: 2rem;
+        border-bottom: 2px solid $primary-color;
+        .table-price {
+            h3 {
+                font-size: 2.6rem;
+                font-weight: 600;
+                padding-bottom: 1.4rem;
+                border-bottom: 2px solid $primary-color;
+            }
+            .img {
+                margin: 4rem 0;
+            }
+        }
+    }
+
+    .role {
+        margin: 4rem 0;
+        .p-ticket {
+            font-weight: 400;
+            font-size: 1.6rem;
+        }
+
+        .color-red {
+            color: $primary-color;
+        }
+    }
+}
