@@ -98,7 +98,7 @@ function Header() {
                     <Button variant="outline-danger" className={cx('signIn')} onClick={() => navigate('/login')}>
                         Sign In
                     </Button>
-                    <Button variant="danger" className={cx('signUp')} onClick={() => navigate('/login')}>
+                    <Button variant="danger" className={cx('signUp')} onClick={() => navigate('/register')}>
                         Sign Up
                     </Button>
                 </div>

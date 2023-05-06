@@ -52,7 +52,7 @@ function Slidebar() {
                 navigation
                 pagination={{ clickable: true }}
                 // scrollbar={{ draggable: true }}
-                autoplay={{ delay: 5000, disableOnInteraction: true }}
+                autoplay={{ delay: 8000, disableOnInteraction: true }}
             >
                 {movieItems.map((item, index) => (
                     <SwiperSlide key={index}>

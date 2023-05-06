@@ -1,0 +1,26 @@
+@use './../../scss/' as *;
+.wrapper {
+    margin: 8rem 9rem 4rem 9rem;
+
+    .tab {
+        color: #fff;
+        font-size: 1.8rem;
+        text-transform: capitalize;
+    }
+
+    .tab-paine {
+        margin-top: 2rem;
+        background-color: #fff;
+        color: #000;
+        .btn-next {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: $primary-color;
+            text-transform: capitalize;
+            color: $text-color;
+            font-size: 1.2rem;
+            padding: 10px 18px;
+        }
+    }
+}

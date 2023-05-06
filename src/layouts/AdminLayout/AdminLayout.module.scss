@@ -1,0 +1,14 @@
+@use '../../scss/' as *;
+.wrapper {
+    height: 100%;
+    background-color: #fff;
+    .content {
+        background-color: #fff;
+        // min-height: 1000px;
+        color: #000;
+        margin-top: 64px;
+        margin-bottom: 4rem;
+        padding: 3rem 4rem;
+        margin-left: $sidebar-width;
+    }
+}

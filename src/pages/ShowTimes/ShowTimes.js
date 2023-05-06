@@ -1,5 +1,5 @@
 import React from 'react';
-import Calendar from './components/Calendar/Calendar';
+import Calendar from './../../common/components/Calendar/Calendar';
 import ShowTimeMovie from './components/ShowTimeMovie/ShowTimeMovie';
 
 import classNames from 'classnames/bind';

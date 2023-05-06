@@ -1,0 +1,203 @@
+@use '../../scss/' as *;
+.wrapper {
+    margin: 8rem 10rem 4rem 8rem;
+    background-color: #fff;
+    color: #000;
+    .infor {
+        .title {
+            font-size: 3rem;
+
+            margin: 0 0 3rem 1rem;
+
+            .icon {
+                font-size: 4rem;
+                color: #ccc;
+                margin: 0 0 1rem.6rem 0;
+            }
+        }
+
+        .user {
+            margin: 0 0 4rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            .value {
+                font-weight: 400;
+            }
+        }
+        .seat-choosed {
+            margin: 0 0 5rem 1.5rem;
+            display: flex;
+            padding-bottom: 3rem;
+            justify-content: space-between;
+            font-weight: 400;
+            border-bottom: 1px solid red;
+            .seat-type {
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+        }
+
+        .price-payment {
+            margin: 0 0 5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+            font-weight: 400;
+            b {
+                color: $primary-color;
+                font-weight: 600;
+                padding-left: 5rem;
+            }
+        }
+
+        .payment-method {
+            margin: 0 0 3rem 0.8rem;
+            .title {
+                font-size: 3rem;
+                .icon {
+                    font-size: 4rem;
+                    color: #ccc;
+                    margin: 0 0 1rem 0.6rem 0;
+                }
+            }
+            h3 {
+                font-size: 2.2rem;
+                margin-left: 1rem;
+                font-weight: 600;
+                padding-bottom: 2rem;
+                border-bottom: 1px solid #ff0000;
+            }
+
+            .card {
+                display: flex;
+                .item {
+                    margin: 2rem 0 0 1rem;
+                    position: relative;
+                    input[type='radio'] {
+                        position: absolute;
+                        top: 5px;
+                        left: 1px;
+                        border: 0px;
+                        width: 2rem;
+                        height: 2em;
+                    }
+
+                    span {
+                        font-size: 2rem;
+                        padding: 0 2rem 0 1rem;
+                    }
+                    img {
+                        width: 40px;
+                        height: 40px;
+                        margin-left: 4rem;
+                    }
+                }
+            }
+        }
+
+        .note {
+            background-color: #ccc;
+            width: 100%;
+            margin: 5rem 0 5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 20px;
+
+            .note-text {
+                font-size: 1.6rem;
+                font-weight: 400;
+                font-style: italic;
+            }
+            .count-down {
+                border-left: 2px solid #fff;
+                padding-left: 20px;
+                span {
+                    font-size: 2rem;
+                    color: #494c62;
+                    text-align: left;
+                }
+                .time {
+                    font-family: Oswald;
+                    font-size: 5rem;
+                    text-align: right;
+                    padding-top: 10px;
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+
+    .movie-ticket {
+        .title-movie {
+            display: flex;
+            .poster {
+                width: 45%;
+                img {
+                    width: 150px;
+                    height: 230px;
+                }
+            }
+
+            .movie-name {
+                margin-top: 1rem;
+                margin-right: 1rem;
+                width: 55%;
+                h3 {
+                    width: 100%;
+                    font-weight: 600;
+                    font-size: 2rem;
+                }
+                h4 {
+                    margin-top: 1rem;
+                    font-size: 1.6rem;
+                }
+            }
+        }
+    }
+    .info-movie {
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #ccc;
+        ul {
+            padding-left: 0;
+            li {
+                display: flex;
+                justify-content: space-between;
+                padding: 3rem 3rem 0 4rem;
+                .bold {
+                    font-weight: 600;
+                }
+                .pl {
+                    margin-right: 11rem;
+                }
+            }
+        }
+    }
+
+    .info-cinema {
+        ul {
+            padding-left: 0;
+            li {
+                display: flex;
+                justify-content: space-between;
+                padding: 3rem 3rem 0 4rem;
+                .bold {
+                    font-weight: 600;
+                }
+                .pl {
+                    margin-right: 11rem;
+                }
+            }
+        }
+    }
+    .continue-btn {
+        width: 100%;
+        align-items: center;
+        text-align: center;
+        margin-top: 3rem;
+        .btn {
+            padding: 8px 18px;
+            text-transform: capitalize;
+            font-size: 1.4rem;
+        }
+    }
+}

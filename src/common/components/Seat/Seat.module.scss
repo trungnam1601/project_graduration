@@ -1,0 +1,27 @@
+.wrapper {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    color: #333;
+    padding: 8px 0 0 0;
+    margin-right: 10px;
+    &:hover {
+        cursor: pointer;
+    }
+
+    &.active {
+        color: #fff;
+    }
+}
+
+.inner {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}

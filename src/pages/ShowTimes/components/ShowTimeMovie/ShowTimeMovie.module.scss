@@ -32,11 +32,12 @@
             font-weight: 600;
         }
 
-        .btn_time {
-            width: 100%;
-            height: auto;
-            margin-top: 2rem;
+        .btn-time {
+            // width: 100%;
+            // height: auto;
+            // margin-top: 2rem;
             display: flex;
+            flex-wrap: wrap;
         }
     }
 }

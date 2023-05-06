@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+
 //module
 import classNames from 'classnames/bind';
 import styles from './CardItem.module.scss';
@@ -10,9 +12,14 @@ import { Button } from 'react-bootstrap';
 import apiConfig from '../../api/apiConfig';
 import { category } from '../../api/tmdbApi';
 import { useNavigate } from 'react-router-dom';
+import ModalBuyTicket from '../ModalBuyTicket/ModalBuyTicket';
 
 const cx = classNames.bind(styles);
 function CardItem({ title, name, img, id, rated }) {
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     const navigate = useNavigate();
     // const background = 'https://image.tmdb.org/t/p/w500/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg';
     const background = apiConfig.w500Image(img);
@@ -35,8 +42,16 @@ function CardItem({ title, name, img, id, rated }) {
                 <span onClick={() => navigate(link)} className={cx('title')}>
                     {title || name}
                 </span>
-                <Button className={cx('btn_ticket')}>Mua vé</Button>
+                <Button onClick={handleOpen} className={cx('btn_ticket')}>
+                    Mua vé
+                </Button>
             </div>
+            <ModalBuyTicket
+                open={open}
+                onClose={handleClose}
+                scheduleFilm={'Vệ Binh Dải Ngân Hà 3'}
+                title={'Vệ Binh Giải Ngân Hà 3'}
+            />
         </>
     );
 }

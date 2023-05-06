@@ -1,0 +1,13 @@
+.nav-link {
+    text-decoration: none;
+    color: black;
+    &.active {
+        color: white;
+        text-decoration: none;
+        display: block;
+        background-color: #3c76d2;
+        svg {
+            color: white !important;
+        }
+    }
+}

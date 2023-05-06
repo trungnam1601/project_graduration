@@ -1,20 +1,23 @@
 @use './../../../scss/' as *;
 .wrapper {
     margin-right: 20px;
-    width: 30%;
+    width: 93px;
+
+    margin-top: 20px;
+
     .btn {
-        display: block;
+        // display: block;
         background-color: #d9d9d9;
         color: #333;
         font-size: 1.6rem;
         text-align: center;
-        border-radius: 10px;
-        margin-bottom: 5px;
-        padding: 5px 8px;
+        border-radius: 8px;
+        padding: 8px 30px;
     }
 
     .emty-seat {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         padding: 5px 0;
+        text-align: center;
     }
 }

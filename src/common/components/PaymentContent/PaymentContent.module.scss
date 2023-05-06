@@ -1,0 +1,68 @@
+@use '../../../scss/' as *;
+.wrapper {
+    margin-top: 30px;
+    background-color: $background-color;
+
+    .format-bg-top {
+        width: 100%;
+        background: url('../../../assets//images/bg-top-seatmap.png') repeat-x top left transparent;
+        height: 8px;
+        overflow: hidden;
+    }
+
+    .minicart-wrapper {
+        padding-top: 1.4rem;
+        display: flex;
+        width: 100%;
+        font-size: 1.4rem;
+        position: relative;
+
+        ul {
+            display: flex;
+            width: 90%;
+            justify-content: space-evenly;
+            .item {
+                display: inline-block;
+                margin-right: 1.6rem;
+                width: 30%;
+                .product-detail {
+                    .infor {
+                        color: #ccc;
+                        img {
+                            width: 100px;
+                            height: 121px;
+                            display: inline-block;
+                        }
+                        thead,
+                        tbody,
+                        tfoot,
+                        tr,
+                        td,
+                        th {
+                            border-style: none;
+                            padding: 0 0.8rem 0 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .btn-next {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: $primary-color;
+            text-transform: capitalize;
+            color: $text-color;
+            font-size: 1.2rem;
+            padding: 10px 18px;
+        }
+    }
+
+    .format-bg-bottom {
+        width: 100%;
+        background: url('../../../assets/images/bg-bottom-seatmap.png') repeat-x top left transparent;
+        height: 8px;
+        overflow: hidden;
+    }
+}

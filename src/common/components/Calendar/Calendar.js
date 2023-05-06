@@ -5,8 +5,12 @@ import styles from './Calendar.module.scss';
 import { Button } from 'react-bootstrap';
 
 const cx = classNames.bind(styles);
-function Calendar({ date }) {
-    return <Button className={cx('btn')}>{date}</Button>;
+function Calendar({ date, style }) {
+    return (
+        <Button style={style} className={cx('btn')}>
+            {date}
+        </Button>
+    );
 }
 
 export default Calendar;

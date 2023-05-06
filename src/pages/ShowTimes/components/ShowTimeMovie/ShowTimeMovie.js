@@ -15,7 +15,13 @@ function ShowTimeMovie({ title, poster, action, time, category }) {
                 <span className={cx('action')}>{action}</span>
                 <h4 className={cx('time')}>{time} phút</h4>
                 <h3 className={cx('category')}>{category}</h3>
-                <ButtonTime time={'18:40'} number={144} />
+                <div className={cx('btn-time')}>
+                    <ButtonTime time={'18:40'} number={144} />
+                    <ButtonTime time={'18:40'} number={144} />
+                    <ButtonTime time={'18:40'} number={144} />
+                    <ButtonTime time={'18:40'} number={144} />
+                    <ButtonTime time={'18:40'} number={144} />
+                </div>
             </div>
         </div>
     );

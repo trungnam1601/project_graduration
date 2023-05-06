@@ -30,15 +30,14 @@ const tmdbApi = {
         // const url = 'movie/' + movieType[type] + `?api_key=${apiConfig.API_KEY}&page=${page}`;
         // return axiosClient.get(url);
     },
-    getTvList: (type, page) => {
-        const url = 'tv/' + tvType[type];
+    getVideos: (cate, id) => {
+        const url = category[cate] + '/' + id + '/videos';
         return axiosClient.get(url, {
             params: {
                 api_key: apiConfig.API_KEY,
-                page: page,
             },
         });
-        // const url = 'tv/' + tvType[type]`?api_key=${apiConfig.API_KEY}&page=${page}`;
+        // const url = category[cate] + '/' + id + `/videos?api_key=${apiConfig.API_KEY}`;
         // return axiosClient.get(url);
     },
 
