@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 //module
 import classNames from 'classnames/bind';
@@ -7,22 +7,21 @@ import styles from './PaymentContent.module.scss';
 import DetailMovie from '../../../pages/BookingOnline/components/DetailMovie/DetailMovie';
 import { Table } from 'react-bootstrap';
 import { Button } from '@mui/material';
-import images from '../../../assets/images/images';
+import { SeatContext } from '../../../context/SeatContext';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
-function PaymentContent() {
+function PaymentContent({ poster, filmName, ageAllowed, startTime, roomName, date, id }) {
+    const { totalPrice, selectedSeats } = useContext(SeatContext);
+    const link = '/thong-tin-thanh-toan/' + id;
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('format-bg-top')} />
             <div className={cx('minicart-wrapper')}>
                 <ul>
                     <li className={cx('item')}>
-                        <DetailMovie
-                            title={'Vệ Binh Dải Ngân Hà '}
-                            img={images.vebinh}
-                            ageAllowed={'C13'}
-                            space={'2D'}
-                        />
+                        <DetailMovie title={filmName} img={poster} ageAllowed={ageAllowed} space={'2D'} />
                     </li>
                     <li className={cx('item')}>
                         <div className={cx('product-detail')}>
@@ -34,16 +33,20 @@ function PaymentContent() {
                                     </tr>
                                     <tr>
                                         <td className={cx('label')}>Suất chiếu</td>
-                                        <td>22:30, 04/05/2023</td>
+                                        <td>
+                                            {startTime}, {date}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td className={cx('label')}>Phòng chiếu</td>
-                                        <td>cinema 2</td>
+                                        <td>{roomName}</td>
                                     </tr>
 
                                     <tr className={cx('book-seat')}>
                                         <td className={cx('label')}>Ghế</td>
-                                        <td className={cx('data')}>A1</td>
+                                        <td className={cx('data')}>
+                                            {selectedSeats.map((seat) => seat.tenGhe).join(',')}
+                                        </td>
                                     </tr>
                                 </tbody>
                             </Table>
@@ -54,13 +57,13 @@ function PaymentContent() {
                             <Table className={cx('infor')}>
                                 <thead>
                                     <tr>
-                                        <td className={cx('label')}>Tiền vé</td>
-                                        <td className={cx('price')}>0,00&nbsp; ₫</td>
+                                        <td className={cx('label')}>Tiền vé:</td>
+                                        <td className={cx('price')}>{totalPrice}đ</td>
                                     </tr>
 
                                     <tr>
-                                        <td className={cx('label')}>Tổng Tiền</td>
-                                        <td className={cx('price')}>0,00&nbsp; ₫</td>
+                                        <td className={cx('label')}>Tổng Tiền:</td>
+                                        <td className={cx('price')}>{totalPrice}đ</td>
                                     </tr>
                                 </thead>
                             </Table>
@@ -68,7 +71,11 @@ function PaymentContent() {
                     </li>
                 </ul>
 
-                <Button className={cx('btn-next')}>Tiếp Tục</Button>
+                <Button className={cx('btn-next')}>
+                    <Link className={cx('link-next')} to={link}>
+                        Tiếp Tục
+                    </Link>
+                </Button>
             </div>
 
             <div className={cx('format-bg-bottom')} />

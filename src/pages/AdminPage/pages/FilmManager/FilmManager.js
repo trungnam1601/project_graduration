@@ -1,5 +1,498 @@
+import React, { useState, useEffect } from 'react';
+//module
+import classNames from 'classnames/bind';
+import styles from '.././../AdminPage.module.scss';
+//
+// import images from '../../assets/images/images';
+import { Table } from 'react-bootstrap';
+import { Button } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+// import EditCalendarIcon from '@mui/icons-material/EditCalendar';
+
+//modal
+
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+
+import { useTheme } from '@mui/material/styles';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+//
+
+import publicService, { movieCategory } from '../../../../common/api/publicService';
+import ModalCreateMovies from '../../components/ModalCreateMovies/ModalCreateMovies';
+
+import adminService from '../../../../common/api/adminService';
+import Paging from '../../../../common/components/Pagination/pagination';
+import imageConfig from '../../../../common/api/imageConfig';
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 10;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
+    },
+};
+
+function getStyles(name, personName, theme) {
+    return {
+        fontWeight:
+            personName.indexOf(name) === -1 ? theme.typography.fontWeightRegular : theme.typography.fontWeightMedium,
+    };
+}
+
+const cx = classNames.bind(styles);
 function FilmManager() {
-    return <h2>Quản Lý Phim</h2>;
+    const [getMovies, setGetMovies] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [show, setShow] = useState(false);
+    const [totalPage, setTotalPage] = useState(0);
+    const [page, setPage] = useState(0);
+    const [reload, setReload] = useState(false);
+
+    const [categoryMovies, setCategoryMovies] = useState([]);
+    const [categoryId, setcategoryId] = useState([]);
+    const theme = useTheme();
+    const [imageBanner, setImageBanner] = useState('');
+    const [imagePoster, setImagePoster] = useState('');
+    const [imageBannerDefault, setImageBannerDefault] = useState('');
+    const [imagePosterDefault, setImagePosterDefault] = useState('');
+
+    //
+    const [dataMovies, setDataMovies] = useState({
+        id: '',
+        actor: '',
+        ageAllowed: 0,
+        description: '',
+        duration: 0,
+        director: '',
+        endDate: '',
+        filmName: '',
+        language: '',
+        startDate: '',
+        trailerUrl: '',
+    });
+
+    //open modal
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleCloseModal = () => {
+        setShow(false);
+    };
+    //
+
+    const handlePaging = (pageClicked) => {
+        setPage(pageClicked - 1);
+    };
+    useEffect(() => {
+        const getMovies = async (page) => {
+            try {
+                const response = await publicService.getMoviesList(movieCategory.upcoming, page, 10);
+                // console.log(response.content);
+                setGetMovies(response.content);
+                setTotalPage(response.totalPages);
+            } catch (error) {
+                console.log('error', error);
+            }
+        };
+        getMovies(page);
+        handleGetCategoryMovies();
+    }, [page, reload]);
+
+    //create movies
+    const handleCreateMovies = async (newData) => {
+        console.log(newData);
+        try {
+            const respone = await adminService.createMovies(newData);
+
+            alert('thêm phim thành công');
+        } catch (err) {
+            console.log('error', err);
+        }
+    };
+
+    // delete movies
+    const handleDeleteMovies = async (id) => {
+        if (window.confirm('Bạn có chắc chắn muốn xóa phim này không?')) {
+            try {
+                const res = await adminService.deleteMovies(id);
+                alert('Xóa phim thành công!');
+                setReload(!reload);
+            } catch (err) {
+                console.log('error', err);
+            }
+        }
+    };
+
+    //update movies
+    const handleOpenModal = (newData) => {
+        const data = {
+            id: newData.id,
+            actor: newData.actor,
+            ageAllowed: newData.ageAllowed,
+            description: newData.description,
+            duration: newData.duration,
+            filmName: newData.filmName,
+            language: newData.language,
+            trailerUrl: newData.trailerUrl,
+            director: newData.director,
+            endDate: newData.endDate,
+            startDate: newData.startDate,
+        };
+        setDataMovies(data);
+        setImageBannerDefault(newData.bannerImageUrl);
+        setImageBanner(newData.bannerImageUrl);
+        setImagePosterDefault(newData.imageUrl);
+        setImagePoster(newData.imageUrl);
+
+        setShow(true);
+    };
+
+    const handleGetCategoryMovies = async () => {
+        try {
+            const res = await adminService.getMoviesCategory(0, 20);
+            setCategoryMovies(res.content);
+        } catch (err) {
+            console.log('error', err);
+        }
+    };
+
+    //change options tag
+    const handleChange = (event) => {
+        const {
+            target: { value },
+        } = event;
+        setcategoryId(
+            // On autofill we get a stringified value.
+            typeof value === 'string' ? value.split(',') : value,
+        );
+    };
+
+    //file upload
+    const handleFileUploadBanner = async (e) => {
+        const formData = new FormData();
+        formData.append('file', e.target.files[0]);
+
+        try {
+            const res = await adminService.createImage(formData);
+            console.log('succes');
+            setImageBanner(imageConfig.Image(res.imageUrl));
+            setImageBannerDefault(imageConfig.Image(res.imageUrl));
+        } catch (error) {
+            alert('error', error);
+        }
+    };
+
+    const handleFileUploadPoster = async (e) => {
+        const formData = new FormData();
+        formData.append('file', e.target.files[0]);
+
+        try {
+            const res = await adminService.createImage(formData);
+            console.log('succes');
+            setImagePoster(imageConfig.Image(res.imageUrl));
+            setImagePosterDefault(imageConfig.Image(res.imageUrl));
+        } catch (error) {
+            alert('error', error);
+        }
+    };
+    //
+
+    //handle input
+    const handleInputChange = (e) => {
+        const { name, value } = e.target; //destructuring
+        // const name = e.target.name;
+        // const value = e.target.value;
+        setDataMovies({ ...dataMovies, [name]: value });
+    };
+
+    const handleUpdateMovies = async (e) => {
+        e.preventDefault();
+        const newData = {
+            ...dataMovies,
+            categories: categoryId,
+            bannerImageUrl: imageBanner,
+            imageUrl: imagePoster,
+        };
+        console.log(newData);
+        try {
+            const res = adminService.updateMovies(newData.id, newData);
+            alert('Sửa thông tin phim thành công');
+            setDataMovies({
+                id: '',
+                actor: '',
+                ageAllowed: 0,
+                description: '',
+                duration: 0,
+                director: '',
+                endDate: '',
+                filmName: '',
+                language: '',
+                startDate: '',
+                trailerUrl: '',
+            });
+            setImageBanner('');
+            setImagePoster('');
+            setcategoryId([]);
+            setImageBannerDefault('');
+            setImagePosterDefault('');
+            handleCloseModal();
+            setReload(!reload);
+        } catch (err) {
+            alert('Sửa thông tin phim không thành công');
+        }
+    };
+
+    return (
+        <div className={cx('wrapper')}>
+            <h2> Quản Lý Phim Đang Chiếu</h2>
+
+            <div className={cx('fillter')}>
+                {/* <div className={cx('input')}>
+                    <input placeholder="Tìm Kiếm Phim" />
+                </div> */}
+
+                <div className={cx('button')}>
+                    {/* <Button variant="contained" className={cx('find', 'btn')}>
+                        Tìm kiếm
+                    </Button> */}
+                    <Button
+                        variant="contained"
+                        className={cx('add', 'btn')}
+                        onClick={handleClickOpen}
+                        style={{ marginLeft: 0 }}
+                    >
+                        Thêm mới
+                    </Button>
+                </div>
+            </div>
+
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th>Mã Phim</th>
+                        <th>Hình Ảnh</th>
+                        <th>Tên Phim</th>
+                        <th>Mô tả</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {getMovies.map((item) => (
+                        <tr key={item.id}>
+                            <td>{item.id}</td>
+                            <td>
+                                <img className={cx('poster')} src={item.imageUrl} alt="vebinh" />
+                            </td>
+                            <td>{item.filmName}</td>
+                            <td>
+                                <p className={cx('detail')}>{item.description}</p>
+                            </td>
+                            <td>
+                                <div>
+                                    <DeleteIcon
+                                        onClick={() => handleDeleteMovies(item.id)}
+                                        className={cx('icon')}
+                                        fontSize="large"
+                                        sx={{ color: ' #5abd0a' }}
+                                    />
+                                    <ModeEditIcon
+                                        onClick={() => handleOpenModal(item)}
+                                        className={cx('icon')}
+                                        fontSize="large"
+                                        sx={{ color: ' #ff0000' }}
+                                    />
+                                    {/* <EditCalendarIcon className={cx('icon')} fontSize="large" /> */}
+                                </div>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table>
+            <div className={cx('pagination')}>
+                <Paging onPageClick={handlePaging} page={page + 1} totalPage={totalPage} />
+            </div>
+            {/* modal */}
+            <Dialog fullWidth maxWidth={'sm'} open={show} onClose={handleCloseModal}>
+                <DialogTitle sx={{ fontSize: 24, textAlign: 'center' }}>Sửa Thông Tin Phim</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        margin="normal"
+                        required
+                        name="filmName"
+                        value={dataMovies.filmName}
+                        label={'Tên phim'}
+                        fullWidth
+                        autoFocus
+                        onChange={handleInputChange}
+                    />
+                    <TextField
+                        margin="normal"
+                        name="director"
+                        value={dataMovies.director}
+                        required
+                        label={'Đạo diễn'}
+                        autoFocus
+                        fullWidth
+                        onChange={handleInputChange}
+                    />
+                    <TextField
+                        name="actor"
+                        value={dataMovies.actor}
+                        margin="normal"
+                        required
+                        label={'Diễn viên'}
+                        fullWidth
+                        autoFocus
+                        onChange={handleInputChange}
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        name="ageAllowed"
+                        value={dataMovies.ageAllowed}
+                        label={'Độ tuổi cho phép'}
+                        fullWidth
+                        autoFocus
+                        onChange={handleInputChange}
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        name="description"
+                        value={dataMovies.description}
+                        label={'Mô tả'}
+                        autoFocus
+                        fullWidth
+                        onChange={handleInputChange}
+                    />
+                    <TextField
+                        name="duration"
+                        value={dataMovies.duration}
+                        margin="normal"
+                        required
+                        label={'Thời lượng'}
+                        fullWidth
+                        autoFocus
+                        onChange={handleInputChange}
+                    />
+
+                    <TextField
+                        margin="normal"
+                        required
+                        name="language"
+                        value={dataMovies.language}
+                        label={'Ngôn ngữ'}
+                        fullWidth
+                        autoFocus
+                        onChange={handleInputChange}
+                    />
+                    <FormControl sx={{ width: '100%', mt: 2, mb: 2 }}>
+                        <InputLabel id="demo-multiple-name-label">Thể loại phim</InputLabel>
+                        <Select
+                            labelId="demo-multiple-name-label"
+                            id="demo-multiple-name"
+                            multiple
+                            value={categoryId}
+                            onChange={handleChange}
+                            input={<OutlinedInput label="Thể loại phim" />}
+                            MenuProps={MenuProps}
+                        >
+                            {categoryMovies.map((item) => (
+                                <MenuItem key={item.id} value={item.id} style={getStyles(item, categoryId, theme)}>
+                                    {item.categoryName}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+
+                    <TextField
+                        margin="normal"
+                        required
+                        name="startDate"
+                        value={dataMovies.startDate}
+                        label={'Ngày khởi chiếu'}
+                        fullWidth
+                        type="date"
+                        autoFocus
+                        onChange={handleInputChange}
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        name="endDate"
+                        value={dataMovies.endDate}
+                        label={'Ngày Kết Thúc'}
+                        type="date"
+                        fullWidth
+                        autoFocus
+                        onChange={handleInputChange}
+                    />
+
+                    <TextField
+                        margin="normal"
+                        required
+                        label={'Banner'}
+                        type="file"
+                        fullWidth
+                        autoFocus
+                        onChange={handleFileUploadBanner}
+                    />
+
+                    <img style={{ width: '50%' }} src={imageBannerDefault} alt="banner" />
+
+                    <TextField
+                        margin="normal"
+                        required
+                        label={'Poster'}
+                        type="file"
+                        fullWidth
+                        autoFocus
+                        onChange={handleFileUploadPoster}
+                    />
+                    <img style={{ width: '50%' }} src={imagePosterDefault} alt="poster" />
+
+                    <TextField
+                        margin="normal"
+                        required
+                        name="trailerUrl"
+                        value={dataMovies.trailerUrl}
+                        label={'Trailer'}
+                        fullWidth
+                        autoFocus
+                        onChange={handleInputChange}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button sx={{ fontSize: 16 }} onClick={handleCloseModal}>
+                        Cancel
+                    </Button>
+                    <Button sx={{ fontSize: 16 }} onClick={handleUpdateMovies}>
+                        Cập Nhật
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            {/*  */}
+
+            <ModalCreateMovies open={open} onClose={handleClose} onCreateMovie={handleCreateMovies} />
+        </div>
+    );
 }
 
 export default FilmManager;

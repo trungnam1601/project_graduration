@@ -30,16 +30,14 @@
         }
 
         .main-content {
-            .room {
-                width: 100%;
-                align-self: center;
+            .list-seat {
+                width: 600px;
+                align-items: center;
                 text-align: center;
-                // margin-top: 1rem;
-                .room-row {
-                    display: flex;
-                    justify-content: center;
-                    margin-top: 10px;
-                }
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                margin: auto;
             }
         }
     }

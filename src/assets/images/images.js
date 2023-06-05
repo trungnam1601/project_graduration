@@ -1,4 +1,5 @@
 const images = {
+    logo: require('../images/logo_home.png'),
     noImage: require('../../assets/images/no-image.png'),
     bg: require('../../assets/images/footer-bg.jpg'),
     giave2D: require('../images/giave2d.png'),

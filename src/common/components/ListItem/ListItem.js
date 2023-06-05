@@ -9,7 +9,7 @@ import 'swiper/scss';
 import 'swiper/scss/navigation';
 //
 import CardItem from '../CardItem/CardItem';
-import tmdbApi from '../../api/tmdbApi';
+import publicService from '../../api/publicService';
 
 const cx = classNames.bind(styles);
 
@@ -18,8 +18,9 @@ function ListItem({ type }) {
 
     useEffect(() => {
         const getListItem = async () => {
-            let response = await tmdbApi.getMoviesList(type);
-            setMovieItems(response.results);
+            let response = await publicService.getMoviesList(type, 0, 20);
+            // console.log(response.content);
+            setMovieItems(response.content);
         };
         getListItem();
     }, [type]);
@@ -40,7 +41,7 @@ function ListItem({ type }) {
             >
                 {movieItems.map((item) => (
                     <SwiperSlide key={item.id}>
-                        <CardItem title={item.title} name={item.name} img={item.poster_path} id={item.id} />
+                        <CardItem title={item.filmName} img={item.imageUrl} id={item.id} trailer={item.trailerUrl} />
                     </SwiperSlide>
                 ))}
             </Swiper>

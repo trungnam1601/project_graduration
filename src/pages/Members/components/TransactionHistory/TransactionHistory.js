@@ -1,11 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 //mui
 import { Typography, Container } from '@mui/material';
 //
 import { Table } from 'react-bootstrap';
-import images from './../../../../assets/images/images';
+
+import publicService from '../../../../common/api/publicService';
+import Paging from '../../../../common/components/Pagination/pagination';
+
 function TransactionHistory() {
+    const [dataOrder, setDataOrder] = useState([]);
+    const [totalPage, setTotalPage] = useState(0);
+    const [page, setPage] = useState(0);
+
+    const handlePaging = (pageClicked) => {
+        setPage(pageClicked - 1);
+    };
+
+    useEffect(() => {
+        const handleTransactionHistory = async (page) => {
+            try {
+                const res = await publicService.getHistoryTransaction(page, 10);
+                console.log(res.content);
+                setDataOrder(res.content);
+                setTotalPage(res.totalPages);
+            } catch (err) {
+                console.log('error', err);
+            }
+        };
+        handleTransactionHistory();
+    }, [page]);
     return (
         <Container component="main" maxWidth="xl">
             <Typography component="h1" variant="h5" sx={{ fontSize: 30, color: '#000', mb: 3 }}>
@@ -23,289 +47,46 @@ function TransactionHistory() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>HD001</td>
-                        <td>
-                            <div style={{ display: 'flex' }}>
-                                <img
-                                    style={{ width: 100, height: 120, marginRight: 10 }}
-                                    src={images.vebinh}
-                                    alt="phim"
-                                />
-                                <p>Vệ Binh Dải Ngân Hà 3</p>
-                            </div>
-                        </td>
-                        <td>
-                            <span>
-                                06/05/2023 <br /> 23:50
-                            </span>
-                        </td>
-                        <td>
-                            <span>
-                                2D VIP <br />
-                                G3, G4 <br />
-                                <b>Tổng Tiền</b>: 500.000 đ
-                            </span>
-                        </td>
-                        <td></td>
-                        <td>
-                            <span>
-                                06/05/2023 <br /> 23:50
-                            </span>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>HD001</td>
-                        <td>
-                            <div style={{ display: 'flex' }}>
-                                <img
-                                    style={{ width: 100, height: 120, marginRight: 10 }}
-                                    src={images.vebinh}
-                                    alt="phim"
-                                />
-                                <p>Vệ Binh Dải Ngân Hà 3</p>
-                            </div>
-                        </td>
-                        <td>
-                            <span>
-                                06/05/2023 <br /> 23:50
-                            </span>
-                        </td>
-                        <td>
-                            <span>
-                                2D VIP <br />
-                                G3, G4 <br />
-                                <b>Tổng Tiền</b>: 500.000 đ
-                            </span>
-                        </td>
-                        <td></td>
-                        <td>
-                            <span>
-                                06/05/2023 <br /> 23:50
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>HD001</td>
-                        <td>
-                            <div style={{ display: 'flex' }}>
-                                <img
-                                    style={{ width: 100, height: 120, marginRight: 10 }}
-                                    src={images.vebinh}
-                                    alt="phim"
-                                />
-                                <p>Vệ Binh Dải Ngân Hà 3</p>
-                            </div>
-                        </td>
-                        <td>
-                            <span>
-                                06/05/2023 <br /> 23:50
-                            </span>
-                        </td>
-                        <td>
-                            <span>
-                                2D VIP <br />
-                                G3, G4 <br />
-                                <b>Tổng Tiền</b>: 500.000 đ
-                            </span>
-                        </td>
-                        <td></td>
-                        <td>
-                            <span>
-                                06/05/2023 <br /> 23:50
-                            </span>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>HD001</td>
-                        <td>
-                            <div style={{ display: 'flex' }}>
-                                <img
-                                    style={{ width: 100, height: 120, marginRight: 10 }}
-                                    src={images.vebinh}
-                                    alt="phim"
-                                />
-                                <p>Vệ Binh Dải Ngân Hà 3</p>
-                            </div>
-                        </td>
-                        <td>
-                            <span>
-                                06/05/2023 <br /> 23:50
-                            </span>
-                        </td>
-                        <td>
-                            <span>
-                                2D VIP <br />
-                                G3, G4 <br />
-                                <b>Tổng Tiền</b>: 500.000 đ
-                            </span>
-                        </td>
-                        <td></td>
-                        <td>
-                            <span>
-                                06/05/2023 <br /> 23:50
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>HD001</td>
-                        <td>
-                            <div style={{ display: 'flex' }}>
-                                <img
-                                    style={{ width: 100, height: 120, marginRight: 10 }}
-                                    src={images.vebinh}
-                                    alt="phim"
-                                />
-                                <p>Vệ Binh Dải Ngân Hà 3</p>
-                            </div>
-                        </td>
-                        <td>
-                            <span>
-                                06/05/2023 <br /> 23:50
-                            </span>
-                        </td>
-                        <td>
-                            <span>
-                                2D VIP <br />
-                                G3, G4 <br />
-                                <b>Tổng Tiền</b>: 500.000 đ
-                            </span>
-                        </td>
-                        <td></td>
-                        <td>
-                            <span>
-                                06/05/2023 <br /> 23:50
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>HD001</td>
-                        <td>
-                            <div style={{ display: 'flex' }}>
-                                <img
-                                    style={{ width: 100, height: 120, marginRight: 10 }}
-                                    src={images.vebinh}
-                                    alt="phim"
-                                />
-                                <p>Vệ Binh Dải Ngân Hà 3</p>
-                            </div>
-                        </td>
-                        <td>
-                            <span>
-                                06/05/2023 <br /> 23:50
-                            </span>
-                        </td>
-                        <td>
-                            <span>
-                                2D VIP <br />
-                                G3, G4 <br />
-                                <b>Tổng Tiền</b>: 500.000 đ
-                            </span>
-                        </td>
-                        <td></td>
-                        <td>
-                            <span>
-                                06/05/2023 <br /> 23:50
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>HD001</td>
-                        <td>
-                            <div style={{ display: 'flex' }}>
-                                <img
-                                    style={{ width: 100, height: 120, marginRight: 10 }}
-                                    src={images.vebinh}
-                                    alt="phim"
-                                />
-                                <p>Vệ Binh Dải Ngân Hà 3</p>
-                            </div>
-                        </td>
-                        <td>
-                            <span>
-                                06/05/2023 <br /> 23:50
-                            </span>
-                        </td>
-                        <td>
-                            <span>
-                                2D VIP <br />
-                                G3, G4 <br />
-                                <b>Tổng Tiền</b>: 500.000 đ
-                            </span>
-                        </td>
-                        <td></td>
-                        <td>
-                            <span>
-                                06/05/2023 <br /> 23:50
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>HD001</td>
-                        <td>
-                            <div style={{ display: 'flex' }}>
-                                <img
-                                    style={{ width: 100, height: 120, marginRight: 10 }}
-                                    src={images.vebinh}
-                                    alt="phim"
-                                />
-                                <p>Vệ Binh Dải Ngân Hà 3</p>
-                            </div>
-                        </td>
-                        <td>
-                            <span>
-                                06/05/2023 <br /> 23:50
-                            </span>
-                        </td>
-                        <td>
-                            <span>
-                                2D VIP <br />
-                                G3, G4 <br />
-                                <b>Tổng Tiền</b>: 500.000 đ
-                            </span>
-                        </td>
-                        <td></td>
-                        <td>
-                            <span>
-                                06/05/2023 <br /> 23:50
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>HD001</td>
-                        <td>
-                            <div style={{ display: 'flex' }}>
-                                <img
-                                    style={{ width: 100, height: 120, marginRight: 10 }}
-                                    src={images.vebinh}
-                                    alt="phim"
-                                />
-                                <p>Vệ Binh Dải Ngân Hà 3</p>
-                            </div>
-                        </td>
-                        <td>
-                            <span>
-                                06/05/2023 <br /> 23:50
-                            </span>
-                        </td>
-                        <td>
-                            <span>
-                                2D VIP <br />
-                                G3, G4 <br />
-                                <b>Tổng Tiền</b>: 500.000 đ
-                            </span>
-                        </td>
-                        <td></td>
-                        <td>
-                            <span>
-                                06/05/2023 <br /> 23:50
-                            </span>
-                        </td>
-                    </tr>
+                    {dataOrder.map((item) => (
+                        <tr key={item.id}>
+                            <td>{item.id}</td>
+                            <td>
+                                <div style={{ display: 'flex' }}>
+                                    <img
+                                        style={{ width: 100, height: 120, marginRight: 10 }}
+                                        src={item.schedule.filmDTO.imageUrl}
+                                        alt="phim"
+                                    />
+                                    <p>{item.schedule.film}</p>
+                                </div>
+                            </td>
+                            <td>
+                                <span>
+                                    {JSON.stringify(item.schedule.startTime).substr(1, 10)} <br />
+                                    {JSON.stringify(item.schedule.startTime).substr(12, 5)}
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    2D {item.seatType} <br />
+                                    {item.seatCode} <br />
+                                    <b>Tổng Tiền</b>: {item.totalPrice} đ
+                                </span>
+                            </td>
+                            <td></td>
+                            <td>
+                                <span>
+                                    {JSON.stringify(item.orderDate).substr(1, 10)} <br />
+                                    {JSON.stringify(item.orderDate).substr(12, 5)}
+                                </span>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
+            <div>
+                <Paging onPageClick={handlePaging} page={page + 1} totalPage={totalPage} />
+            </div>
         </Container>
     );
 }

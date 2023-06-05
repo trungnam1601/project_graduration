@@ -56,8 +56,8 @@
             }
 
             .title {
-                margin-top: 2rem;
-                font-size: 5rem;
+                // margin-top: 2rem;
+                font-size: 6.4rem;
                 line-height: 1;
                 font-weight: 700;
             }
@@ -69,6 +69,7 @@
 
             .infor {
                 padding-left: 0;
+
                 li {
                     padding: 6px 0;
                 }
@@ -107,6 +108,21 @@
                 font-weight: 600;
                 font-size: 3.2rem;
             }
+        }
+    }
+
+    .trailer {
+        margin: 4rem 6rem 0 6.4rem;
+        h2 {
+            color: #fff;
+            font-size: 4rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid $primary-color;
+        }
+        .video {
+            margin-top: 6rem;
+            width: 100%;
+            text-align: center;
         }
     }
 }

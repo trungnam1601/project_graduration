@@ -1,21 +1,27 @@
-// api/axiosClient.js
 import axios from 'axios';
-import apiConfig from './apiConfig';
+
+const BASE_URL = 'http://contabo.foxcode.site:8087';
 
 const axiosClient = axios.create({
-    baseURL: apiConfig.BASE_URL,
-    // headers: {
-    //     'content-type': 'application/json',
-    // },
-    // params: {
-    //     api_key: apiConfig.API_KEY,
-    // },
+    baseURL: BASE_URL,
 });
 
-axiosClient.interceptors.request.use(async (config) => {
-    // Handle token here ...
-    return config;
-});
+axiosClient.interceptors.request.use(
+    (request) => {
+        const token = localStorage.getItem('token') ? localStorage.getItem('token') : null;
+        if (token) {
+            request.headers['AccessToken'] = token;
+        }
+        return request;
+    },
+    (error) => {
+        return Promise.reject(error);
+    },
+);
+// axiosClient.interceptors.request.use(async (config) => {
+//     // Handle token here ...
+//     return config;
+// });
 
 axiosClient.interceptors.response.use(
     (response) => {

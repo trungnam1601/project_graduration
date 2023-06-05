@@ -1,23 +1,28 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import apiConfig from '../../common/api/apiConfig';
-import tmdbApi, { category } from '../../common/api/tmdbApi';
+
 import styles from './Detail.module.scss';
 import classNames from 'classnames/bind';
 import { Button } from '@mui/material';
-import CastList from './Component/CastList/CastList';
+import Youtube from 'react-youtube';
+
+import publicService from '../../common/api/publicService';
+import ModalBuyTicket from '../../common/components/ModalBuyTicket/ModalBuyTicket';
 
 const cx = classNames.bind(styles);
 function Detail() {
     const [item, setItem] = useState([]);
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
     const { id } = useParams();
 
     useEffect(() => {
         const getDetail = async () => {
             try {
-                const response = await tmdbApi.detail(category.movie, id);
-                // console.log(response);
+                const response = await publicService.getDetail(id);
                 setItem(response);
             } catch (error) {
                 console.log(error.message);
@@ -26,8 +31,12 @@ function Detail() {
         getDetail();
     }, [id]);
 
-    const bg = apiConfig.originalImage(item.backdrop_path);
-    const poster = apiConfig.w500Image(item.poster_path);
+    const opts = {
+        playerVars: {
+            autoplay: 0,
+        },
+    };
+
     return (
         <>
             {item && (
@@ -35,7 +44,7 @@ function Detail() {
                     <div
                         className={cx('banner')}
                         style={{
-                            backgroundImage: `url(${bg})`,
+                            backgroundImage: `url(${item.bannerImageUrl})`,
                         }}
                     ></div>
                     <div className={cx('content')}>
@@ -43,44 +52,53 @@ function Detail() {
                             <div
                                 className={cx('content-poster__img')}
                                 style={{
-                                    backgroundImage: `url(${poster})`,
+                                    backgroundImage: `url(${item.imageUrl})`,
                                 }}
                             ></div>
                         </div>
                         <div className={cx('content-infor')}>
-                            <h1 className={cx('title')}>{item.title || item.original_name}</h1>
+                            <h1 className={cx('title')}>{item.filmName}</h1>
                             <div className={cx('genres')}>
-                                {item.genres &&
-                                    item.genres.slice(0, 5).map((genre, index) => (
+                                {item.filmCategories &&
+                                    item.filmCategories.slice(0, 5).map((genre, index) => (
                                         <span className={cx('genres__item')} key={index}>
-                                            {genre.name}
+                                            {genre.categoryName}
                                         </span>
                                     ))}
                             </div>
-                            <p className={cx('overview')}>{item.overview}</p>
+                            <p className={cx('overview')}>{item.description}</p>
                             <ul className={cx('infor')}>
                                 <li>
-                                    <span>Phân Loại: P - PHIM PHỔ BIẾN CHO MỌI LỨA TUỔI </span>
+                                    <span>Phân Loại: PHIM GIÀNH CHO LỨA TUỔI {item.ageAllowed} </span>
                                 </li>
 
                                 <li>
-                                    {/* <span>Đạo Diễn: </span> */}
-                                    <CastList title={'Đạo Diễn'} />
+                                    <span>Đạo Diễn: {item.director} </span>
                                 </li>
                                 <li>
-                                    <CastList title={'Diễn Viên'} />
+                                    <span>Diễn Viên: {item.actor} </span>
                                 </li>
                                 <li>
-                                    <span>Ngày Khởi Chiếu: {item.release_date} </span>
+                                    <span>Ngày Khởi Chiếu: {item.startDate} </span>
                                 </li>
                                 <li>
-                                    <span>Thời Lượng: {item.runtime} phút</span>
+                                    <span>Thời Lượng: {item.duration} phút</span>
                                 </li>
                                 <li>
-                                    <span>Ngôn Ngữ: {item.original_language}</span>
+                                    <span>Ngôn Ngữ: {item.language}</span>
                                 </li>
                             </ul>
-                            <Button className={cx('btn')}>Mua Vé</Button>
+                            <Button onClick={handleOpen} className={cx('btn')}>
+                                Mua Vé
+                            </Button>
+                            <ModalBuyTicket open={open} onClose={handleClose} title={item.filmName} id={id} />
+                        </div>
+                    </div>
+                    <div className={cx('trailer')}>
+                        <h2>Trailer</h2>
+
+                        <div className={cx('video')}>
+                            <Youtube videoId={item.trailerUrl} opts={opts} />
                         </div>
                     </div>
                 </div>

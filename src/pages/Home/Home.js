@@ -4,7 +4,7 @@ import Slidebar from './components/Slidebar/Slidebar';
 import { Container, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ListItem from '../../common/components/ListItem/ListItem';
-import { movieType } from '../../common/api/tmdbApi';
+import { movieCategory } from '../../common/api/publicService';
 
 const cx = classNames.bind(styles);
 function Home() {
@@ -20,11 +20,11 @@ function Home() {
                 >
                     <div className={cx('section__header', 'inner')}>
                         <h2>Phim Đang Chiếu</h2>
-                        <Link to={'/movie'}>
-                            <Button className={cx('btn')}>View more</Button>
+                        <Link to={'/movies/playing'}>
+                            <Button className={cx('btn-more')}>View more</Button>
                         </Link>
                     </div>
-                    <ListItem type={movieType.popular} />
+                    <ListItem type={movieCategory.now_showing} />
                 </div>
 
                 <div
@@ -36,11 +36,11 @@ function Home() {
                 >
                     <div className={cx('section__header', 'inner')}>
                         <h2>Phim Sắp Chiếu</h2>
-                        <Link to={'/movie'}>
-                            <Button className={cx('btn')}>View more</Button>
+                        <Link to={'/movies/up-coming'}>
+                            <Button className={cx('btn-more')}>View more</Button>
                         </Link>
                     </div>
-                    <ListItem type={movieType.upcoming} />
+                    <ListItem type={movieCategory.upcoming} />
                 </div>
             </Container>
         </>

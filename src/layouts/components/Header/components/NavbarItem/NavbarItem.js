@@ -4,10 +4,10 @@ import styles from './NavbarItem.module.scss';
 
 const cx = classNames.bind(styles);
 
-function NavbarItem({ link, title }) {
+function NavbarItem({ link, title, onClick }) {
     return (
-        <NavLink to={link} className={(nav) => cx('item', { active: nav.isActive })}>
-            {title}
+        <NavLink to={link} onClick={onClick} className={(nav) => cx('item', { active: nav.isActive })}>
+            <span className={cx('title')}>{title}</span>
         </NavLink>
     );
 }

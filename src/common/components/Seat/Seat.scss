@@ -1,0 +1,58 @@
+.btn-seat {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    color: #000;
+    margin-bottom: 1rem;
+    min-width: 50px;
+    font-weight: 600;
+    font-family: 'ProximaNova', sans-serif;
+    &:hover {
+        color: #000;
+    }
+    padding: 8px 0 0 0;
+    cursor: pointer;
+}
+.seat-normal {
+    background-image: url('../../../assets//images//seat-unselect-normal.png');
+    background-size: 40px 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.selected {
+    background-image: url('../../../assets//images//seat-select-normal.png');
+    background-size: 40px 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.seat-vip {
+    background-image: url('../../../assets/images/seat-unselect-vip.png');
+    background-size: 40px 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.selected-vip {
+    background-image: url('../../../assets/images/seat-select-vip.png');
+    background-size: 40px 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.seat-double {
+    background-image: url('../../../assets/images/seat-unselect-double.png');
+    background-size: 80px 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 90px;
+    height: 40px;
+}
+
+.selected-double {
+    background-image: url('../../../assets/images/seat-select-double.png');
+    background-size: 80px 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+}

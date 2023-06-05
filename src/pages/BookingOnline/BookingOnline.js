@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 //module
 import classNames from 'classnames/bind';
@@ -7,14 +7,34 @@ import images from './../../assets/images/images';
 //mui
 
 import Container from '@mui/material/Container';
-
-import SeatRow from './components/SeatRow/SeatRow';
-import Seat from '../../common/components/Seat/Seat';
 import PaymentContent from '../../common/components/PaymentContent/PaymentContent';
+
+import Seat from '../../common/components/Seat/Seat';
+import { useParams } from 'react-router-dom';
+import publicService from '../../common/api/publicService';
+import { SeatContext } from '../../context/SeatContext';
 
 const cx = classNames.bind(styles);
 
 function BookingOnline() {
+    const { id } = useParams();
+    const { seats } = useContext(SeatContext);
+
+    const [detailSchedule, setDetailSchedule] = useState('');
+
+    useEffect(() => {
+        const handleGetDetailSchedule = async () => {
+            try {
+                const res = await publicService.getDetailSchedule(id);
+                // console.log(res);
+                setDetailSchedule(res);
+            } catch (err) {
+                console.log('error', err);
+            }
+        };
+        handleGetDetailSchedule();
+    }, [id]);
+
     return (
         <div className={cx('wrapper')}>
             <Container className={cx('inner')} maxWidth="md">
@@ -49,24 +69,25 @@ function BookingOnline() {
                 </div>
                 <div className={cx('main-content')}>
                     <img src={images.screen} alt="screen" />
-                    <div className={cx('room')}>
-                        <SeatRow img={images.seatNormalEmpty} />
-                        <SeatRow img={images.seatNormalEmpty} />
-                        <SeatRow img={images.seatNormalEmpty} />
-                        <SeatRow img={images.seatVipEmpty} />
-                        <SeatRow img={images.seatVipEmpty} />
-                        <SeatRow img={images.seatVipEmpty} />
-                        <SeatRow img={images.seatVipEmpty} />
-                        <SeatRow img={images.seatVipEmpty} />
-                        <SeatRow img={images.seatVipEmpty} />
-                        <div className={cx('room-row')}>
-                            <Seat width={90} img={images.seatDoubleEmpty} text={'M8 - M7'} />
-                            <Seat width={90} img={images.seatDoubleEmpty} text={'M8 - M7'} />
-                            <Seat width={90} img={images.seatDoubleEmpty} text={'M8 - M7'} />
-                        </div>
+                    <div className={cx('list-seat')}>
+                        {seats.map((seat) => (
+                            <Seat key={seat.maGhe} seat={seat} />
+                        ))}
                     </div>
                 </div>
-                <PaymentContent />
+                {detailSchedule ? (
+                    <PaymentContent
+                        id={id}
+                        filmName={detailSchedule.film}
+                        poster={detailSchedule.filmDTO.imageUrl}
+                        startTime={detailSchedule.startTime.slice(0, 10)}
+                        ageAllowed={detailSchedule.filmDTO.ageAllowed}
+                        date={detailSchedule.startTime.slice(11, 16)}
+                        roomName={detailSchedule.roomName}
+                    />
+                ) : (
+                    ''
+                )}
             </Container>
         </div>
     );

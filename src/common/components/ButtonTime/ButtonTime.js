@@ -6,11 +6,14 @@ import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-function ButtonTime({ time, number }) {
+function ButtonTime({ time, id }) {
+    const url = '/dat-ve/' + id;
     return (
         <div className={cx('wrapper')}>
-            <Link className={cx('btn')}>{time}</Link>
-            <div className={cx('emty-seat')}>{number} ghế trống</div>
+            <Link to={url} className={cx('btn')}>
+                {time}
+            </Link>
+            {/* <div className={cx('emty-seat')}>{number} ghế trống</div> */}
         </div>
     );
 }

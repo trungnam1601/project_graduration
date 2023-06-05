@@ -14,13 +14,14 @@ import classNames from 'classnames/bind';
 //
 // import SlidebarItem from '../SliderbarItem/SlidebarItem';
 import { useEffect, useState } from 'react';
-import tmdbApi, { movieType, category } from '../../../../common/api/tmdbApi';
-import apiConfig from '../../../../common/api/apiConfig';
+
+// import apiConfig from '../../../../common/api/apiConfig';
 import { useNavigate } from 'react-router-dom';
 
 //mui
 import { Modal, Fade, Button, Box } from '@mui/material';
 import Youtube from 'react-youtube';
+import publicService, { movieCategory } from '../../../../common/api/publicService';
 
 // import MovieTrailerModal from '../MovieTrailerModal/MovieTrailerModal';
 
@@ -31,10 +32,10 @@ function Slidebar() {
     useEffect(() => {
         const getMovies = async () => {
             try {
-                const respone = await tmdbApi.getMoviesList(movieType.popular, 1);
+                const respone = await publicService.getMoviesList(movieCategory.upcoming, 0, 10);
                 // console.log(respone.results);
 
-                setMovieItems(respone.results.slice(1, 6));
+                setMovieItems(respone.content.slice(5, 10));
             } catch (error) {
                 console.log('error', error);
             }
@@ -58,12 +59,13 @@ function Slidebar() {
                     <SwiperSlide key={index}>
                         {({ isActive }) => (
                             <SlidebarItem
-                                title={item.title}
+                                title={item.filmName}
                                 id={item.id}
-                                overview={item.overview}
+                                overview={item.description}
                                 className={`${isActive ? 'isActive' : ''}`}
-                                poster_path={item.poster_path}
-                                background={item.backdrop_path ? item.backdrop_path : item.poster_path}
+                                poster_path={item.imageUrl}
+                                background={item.bannerImageUrl}
+                                trailer={item.trailerUrl}
                             />
                         )}
                     </SwiperSlide>
@@ -73,25 +75,13 @@ function Slidebar() {
     );
 }
 
-const SlidebarItem = ({ className, title, overview, poster_path, id, background }) => {
+const SlidebarItem = ({ className, title, overview, poster_path, id, background, trailer }) => {
     const navigate = useNavigate();
-    const backdrop = apiConfig.originalImage(background);
-    const [trailer, setTrailer] = useState('');
+
+    // const [trailer, setTrailer] = useState('');
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
-    const getTrailer = async () => {
-        const officialTrailer = await tmdbApi.getVideos(category.movie, id);
-
-        console.log(officialTrailer);
-
-        if (officialTrailer.results) {
-            const videoTrailer = officialTrailer.results.find((vid) => vid.name === 'Official Trailer');
-            setTrailer(videoTrailer.key ? videoTrailer.key : officialTrailer.results[0].key);
-        }
-        handleOpen();
-    };
 
     const style = {
         position: 'absolute',
@@ -110,7 +100,7 @@ const SlidebarItem = ({ className, title, overview, poster_path, id, background 
     };
 
     return (
-        <div className={cx('item', `${className}`)} style={{ backgroundImage: `url(${backdrop})` }}>
+        <div className={cx('item', `${className}`)} style={{ backgroundImage: `url(${background})` }}>
             <div className={cx('item-content')}>
                 <div
                     className={cx('item-info')}
@@ -125,7 +115,7 @@ const SlidebarItem = ({ className, title, overview, poster_path, id, background 
                         <Button variant="danger" className={cx('watchnowbtn')} onClick={() => navigate('/movie/' + id)}>
                             Watch now
                         </Button>
-                        <Button variant="danger" onClick={getTrailer} className={cx('trailerbtn')}>
+                        <Button variant="danger" onClick={handleOpen} className={cx('trailerbtn')}>
                             Watch trailer
                         </Button>
                     </div>
@@ -137,7 +127,7 @@ const SlidebarItem = ({ className, title, overview, poster_path, id, background 
                     data-aos-offset="500"
                     data-aos-duration="500"
                 >
-                    <img src={apiConfig.w500Image(poster_path)} alt="poster" />
+                    <img src={poster_path} alt="poster" />
                 </div>
             </div>
 
@@ -150,6 +140,7 @@ const SlidebarItem = ({ className, title, overview, poster_path, id, background 
             >
                 <Fade in={open}>
                     <Box sx={style}>
+                        {/* <iframe src={'https://youtu.be/yBAGclXF3Jk'} title="Offical Trailer"></iframe> */}
                         <Youtube videoId={trailer} opts={opts} />
                     </Box>
                 </Fade>

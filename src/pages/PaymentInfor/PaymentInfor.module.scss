@@ -1,6 +1,6 @@
 @use '../../scss/' as *;
 .wrapper {
-    margin: 8rem 10rem 4rem 8rem;
+    margin: 12rem 10rem 4rem 8rem;
     background-color: #fff;
     color: #000;
     .infor {
@@ -17,8 +17,10 @@
         }
 
         .user {
-            margin: 0 0 4rem 1.5rem;
+            margin: 0 0 0 1.5rem;
             display: flex;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid $primary-color;
             justify-content: space-between;
             .value {
                 font-weight: 400;
@@ -38,11 +40,13 @@
         }
 
         .price-payment {
-            margin: 0 0 5rem 1rem;
+            margin: 0rem 0 0rem 1rem;
             display: flex;
             flex-direction: column;
-            align-items: end;
+            align-items: flex-end;
             font-weight: 400;
+            padding: 6.5rem 0;
+            border-bottom: 1px solid $primary-color;
             b {
                 color: $primary-color;
                 font-weight: 600;
@@ -98,7 +102,7 @@
         .note {
             background-color: #ccc;
             width: 100%;
-            margin: 5rem 0 5rem 1rem;
+            margin: 7rem 0 5rem 1rem;
             display: flex;
             justify-content: space-between;
             padding: 15px 20px;
@@ -155,14 +159,14 @@
         }
     }
     .info-movie {
-        padding-bottom: 2rem;
+        padding-bottom: 1rem;
         border-bottom: 1px solid #ccc;
         ul {
             padding-left: 0;
             li {
                 display: flex;
                 justify-content: space-between;
-                padding: 3rem 3rem 0 4rem;
+                padding: 1.5rem 3rem 0 4rem;
                 .bold {
                     font-weight: 600;
                 }
@@ -179,7 +183,7 @@
             li {
                 display: flex;
                 justify-content: space-between;
-                padding: 3rem 3rem 0 4rem;
+                padding: 1.5rem 3rem 0 4rem;
                 .bold {
                     font-weight: 600;
                 }

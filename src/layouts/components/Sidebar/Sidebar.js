@@ -54,7 +54,15 @@ function Sidebar({ open, onClose }) {
         },
         {
             name: 'Quản Lý Hóa Đơn',
-            url: '/admin/bill',
+            url: '/admin/hoa-don',
+        },
+        {
+            name: 'Quản Lý Thể Loại Phim',
+            url: '/admin/category',
+        },
+        {
+            name: 'Quản Lý Phòng Chiếu',
+            url: '/admin/room',
         },
     ]);
 
