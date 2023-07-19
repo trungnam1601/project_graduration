@@ -12,11 +12,11 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import InforMembers from './components/InforMembers/InforMembers';
 import TransactionHistory from './components/TransactionHistory/TransactionHistory';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 //
 const cx = classNames.bind(styles);
 function Members() {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const [value, setValue] = useState('1');
 
     const handleChange = (event, newValue) => {

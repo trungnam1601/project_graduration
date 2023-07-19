@@ -31,8 +31,12 @@ import ModalCreateMovies from './components/ModalCreateMovies/ModalCreateMovies'
 
 import adminService from '../../common/api/adminService';
 import Paging from '../../common/components/Pagination/pagination';
-import imageConfig from '../../common/api/imageConfig';
+// import imageConfig from '../../common/api/imageConfig';
 import { useNavigate } from 'react-router-dom';
+
+//react- toast
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 10;
@@ -66,10 +70,10 @@ function AdminPage() {
     const [categoryMovies, setCategoryMovies] = useState([]);
     const [categoryId, setcategoryId] = useState([]);
     const theme = useTheme();
-    const [imageBanner, setImageBanner] = useState('');
-    const [imagePoster, setImagePoster] = useState('');
-    const [imageBannerDefault, setImageBannerDefault] = useState('');
-    const [imagePosterDefault, setImagePosterDefault] = useState('');
+    // const [imageBanner, setImageBanner] = useState('');
+    // const [imagePoster, setImagePoster] = useState('');
+    // const [imageBannerDefault, setImageBannerDefault] = useState('');
+    // const [imagePosterDefault, setImagePosterDefault] = useState('');
 
     //
     const [dataMovies, setDataMovies] = useState({
@@ -84,6 +88,8 @@ function AdminPage() {
         language: '',
         startDate: '',
         trailerUrl: '',
+        imageUrl: '',
+        bannerImageUrl: '',
     });
 
     //open modal
@@ -109,7 +115,7 @@ function AdminPage() {
         if (token && role && role === 'ADMIN') {
             navigate('/admin');
         } else {
-            alert('Bạn không có quyền truy cập vào trang này');
+            toast.warning('Bạn không có quyền truy cập trang này');
             navigate('/');
         }
         const getMovies = async (page) => {
@@ -132,21 +138,25 @@ function AdminPage() {
         try {
             const respone = await adminService.createMovies(newData);
             console.log(respone);
-            alert('thêm bài viết thành công');
+            toast.success('Thêm phim thành công');
+            setReload(!reload);
         } catch (err) {
             console.log('error', err);
+            toast.error('Có lỗi xảy ra!! Thử lại');
         }
     };
 
     // delete movies
     const handleDeleteMovies = async (id) => {
-        if (window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')) {
+        if (window.confirm('Bạn có chắc chắn muốn xóa phim này không?')) {
             try {
                 const res = await adminService.deleteMovies(id);
-                alert('Xóa thành công!');
+                console.log(res);
+                toast.success('Xóa phim thành công!');
                 setReload(!reload);
             } catch (err) {
                 console.log('error', err);
+                toast.error('Có lỗi xảy ra!! Thử lại');
             }
         }
     };
@@ -165,12 +175,14 @@ function AdminPage() {
             director: newData.director,
             endDate: newData.endDate,
             startDate: newData.startDate,
+            imageUrl: newData.imageUrl,
+            bannerImageUrl: newData.bannerImageUrl,
         };
         setDataMovies(data);
-        setImageBannerDefault(newData.bannerImageUrl);
-        setImageBanner(newData.bannerImageUrl);
-        setImagePosterDefault(newData.imageUrl);
-        setImagePoster(newData.imageUrl);
+        // setImageBannerDefault(newData.bannerImageUrl);
+        // setImageBanner(newData.bannerImageUrl);
+        // setImagePosterDefault(newData.imageUrl);
+        // setImagePoster(newData.imageUrl);
 
         setShow(true);
     };
@@ -195,35 +207,34 @@ function AdminPage() {
         );
     };
 
-    //file upload
-    const handleFileUploadBanner = async (e) => {
-        const formData = new FormData();
-        formData.append('file', e.target.files[0]);
+    // file upload
+    // const handleFileUploadBanner = async (e) => {
+    //     const formData = new FormData();
+    //     formData.append('file', e.target.files[0]);
 
-        try {
-            const res = await adminService.createImage(formData);
-            console.log('succes');
-            setImageBanner(imageConfig.Image(res.imageUrl));
-            setImageBannerDefault(imageConfig.Image(res.imageUrl));
-        } catch (error) {
-            alert('error', error);
-        }
-    };
+    //     try {
+    //         const res = await adminService.createImage(formData);
+    //         console.log('succes');
+    //         setImageBanner(imageConfig.Image(res.imageUrl));
+    //         setImageBannerDefault(imageConfig.Image(res.imageUrl));
+    //     } catch (error) {
+    //         alert('error', error);
+    //     }
+    // };
 
-    const handleFileUploadPoster = async (e) => {
-        const formData = new FormData();
-        formData.append('file', e.target.files[0]);
+    // const handleFileUploadPoster = async (e) => {
+    //     const formData = new FormData();
+    //     formData.append('file', e.target.files[0]);
 
-        try {
-            const res = await adminService.createImage(formData);
-            console.log('succes');
-            setImagePoster(imageConfig.Image(res.imageUrl));
-            setImagePosterDefault(imageConfig.Image(res.imageUrl));
-        } catch (error) {
-            alert('error', error);
-        }
-    };
-    //
+    //     try {
+    //         const res = await adminService.createImage(formData);
+    //         console.log('succes');
+    //         setImagePoster(imageConfig.Image(res.imageUrl));
+    //         setImagePosterDefault(imageConfig.Image(res.imageUrl));
+    //     } catch (error) {
+    //         alert('error', error);
+    //     }
+    // };
 
     //handle input
     const handleInputChange = (e) => {
@@ -238,22 +249,24 @@ function AdminPage() {
         const newData = {
             ...dataMovies,
             categories: categoryId,
-            bannerImageUrl: imageBanner,
-            imageUrl: imagePoster,
+            // bannerImageUrl: imageBanner,
+            // imageUrl: imagePoster,
         };
         console.log(newData);
         try {
             const res = adminService.updateMovies(newData.id, newData);
-            alert('Sửa thông tin phim thành công');
-            setImageBanner('');
-            setImagePoster('');
+            console.log(res);
+            toast.success('Sửa thông tin phim thành công');
+            // setImageBanner('');
+            // setImagePoster('');
             setcategoryId([]);
-            setImageBannerDefault('');
-            setImagePosterDefault('');
+            // setImageBannerDefault('');
+            // setImagePosterDefault('');
             handleCloseModal();
             setReload(!reload);
         } catch (err) {
-            alert('Sửa thông tin phim không thành công');
+            console.log('error', err);
+            toast.error('Có lỗi xảy ra!! Thử lại');
         }
     };
 
@@ -448,24 +461,28 @@ function AdminPage() {
                         margin="normal"
                         required
                         label={'Banner'}
-                        type="file"
+                        name="bannerImageUrl"
+                        // type="file"
+                        value={dataMovies.bannerImageUrl}
                         fullWidth
                         autoFocus
-                        onChange={handleFileUploadBanner}
+                        onChange={handleInputChange}
                     />
 
-                    <img style={{ width: '50%' }} src={imageBannerDefault} alt="banner" />
+                    {/* <img style={{ width: '50%' }} src={imageBannerDefault} alt="banner" /> */}
 
                     <TextField
                         margin="normal"
                         required
                         label={'Poster'}
-                        type="file"
+                        value={dataMovies.imageUrl}
+                        name="imageUrl"
+                        // type="file"
                         fullWidth
                         autoFocus
-                        onChange={handleFileUploadPoster}
+                        onChange={handleInputChange}
                     />
-                    <img style={{ width: '50%' }} src={imagePosterDefault} alt="poster" />
+                    {/* <img style={{ width: '50%' }} src={imagePosterDefault} alt="poster" /> */}
 
                     <TextField
                         margin="normal"
@@ -488,7 +505,6 @@ function AdminPage() {
                 </DialogActions>
             </Dialog>
             {/*  */}
-
             <ModalCreateMovies open={open} onClose={handleClose} onCreateMovie={handleCreateMovies} />
         </div>
     );

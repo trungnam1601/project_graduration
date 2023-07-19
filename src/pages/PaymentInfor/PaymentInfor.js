@@ -13,7 +13,10 @@ import { Button } from '@mui/material';
 import publicService from '../../common/api/publicService';
 
 import { useParams, useNavigate } from 'react-router-dom';
-import ModalSuccess from '../../common/components/ModalSuccess/ModalSuccess';
+
+//react- toast
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const cx = classNames.bind(styles);
 function PaymentInfor() {
@@ -22,9 +25,6 @@ function PaymentInfor() {
     const { totalPrice, selectedSeats } = useContext(SeatContext);
     const [dataUser, setDataUser] = useState('');
     const [detailSchedule, setDetailSchedule] = useState('');
-    const [open, setOpen] = useState(false);
-    const handleClose = () => setOpen(false);
-    const handleOpen = () => setOpen(true);
 
     useEffect(() => {
         const handleGetDetailSchedule = async () => {
@@ -62,7 +62,8 @@ function PaymentInfor() {
         };
         try {
             const res = await publicService.createOrderSeat(newData);
-            alert('Đặt vé thành công');
+            console.log(res);
+            toast.success('Đặt vé thành công');
             navigate('/');
         } catch (error) {
             console.log('error', error);
@@ -201,7 +202,6 @@ function PaymentInfor() {
                     )}
                 </Grid>
             </Grid>
-            <ModalSuccess open={open} onClose={handleClose} text={'Đặt vé thành công'} />
         </div>
     );
 }

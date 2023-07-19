@@ -26,7 +26,7 @@ function BookingOnline() {
         const handleGetDetailSchedule = async () => {
             try {
                 const res = await publicService.getDetailSchedule(id);
-                // console.log(res);
+                console.log(res);
                 setDetailSchedule(res);
             } catch (err) {
                 console.log('error', err);
@@ -75,7 +75,7 @@ function BookingOnline() {
                         ))}
                     </div>
                 </div>
-                {detailSchedule ? (
+                {/* {detailSchedule ? (
                     <PaymentContent
                         id={id}
                         filmName={detailSchedule.film}
@@ -87,7 +87,17 @@ function BookingOnline() {
                     />
                 ) : (
                     ''
-                )}
+                )} */}
+
+                <PaymentContent
+                    id={id}
+                    filmName={detailSchedule.film}
+                    // poster={detailSchedule.filmDTO.imageUrl}
+                    // startTime={detailSchedule.startTime.slice(0, 10)}
+                    // // ageAllowed={detailSchedule.filmDTO.ageAllowed}
+                    // date={detailSchedule.startTime.slice(11, 16)}
+                    roomName={detailSchedule.roomName}
+                />
             </Container>
         </div>
     );

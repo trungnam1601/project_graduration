@@ -38,13 +38,13 @@ function getStyles(name, personName, theme) {
 }
 
 function ModalCreateMovies({ open, onClose, onCreateMovie }) {
-    const [imageBanner, setImageBanner] = useState('');
-    const [imagePoster, setImagePoster] = useState('');
+    // const [imageBanner, setImageBanner] = useState('');
+    // const [imagePoster, setImagePoster] = useState('');
     const [startDate, setstartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [categoryMovies, setCategoryMovies] = useState([]);
-    const [imageBannerDefault, setImageBannerDefault] = useState('');
-    const [imagePosterDefault, setImagePosterDefault] = useState('');
+    // const [imageBannerDefault, setImageBannerDefault] = useState('');
+    // const [imagePosterDefault, setImagePosterDefault] = useState('');
 
     const theme = useTheme();
     const [categoryId, setcategoryId] = useState([]);
@@ -81,6 +81,8 @@ function ModalCreateMovies({ open, onClose, onCreateMovie }) {
         filmName: '',
         language: '',
         trailerUrl: '',
+        imageUrl: '',
+        bannerImageUrl: '',
     });
     const handleClose = () => {
         onClose();
@@ -94,33 +96,33 @@ function ModalCreateMovies({ open, onClose, onCreateMovie }) {
     };
 
     //file upload
-    const handleFileUploadBanner = async (e) => {
-        const formData = new FormData();
-        formData.append('file', e.target.files[0]);
+    // const handleFileUploadBanner = async (e) => {
+    //     const formData = new FormData();
+    //     formData.append('file', e.target.files[0]);
 
-        try {
-            const res = await adminService.createImage(formData);
+    //     try {
+    //         const res = await adminService.createImage(formData);
 
-            setImageBanner(imageConfig.Image(res.imageUrl));
-            setImageBannerDefault(imageConfig.Image(res.imageUrl));
-        } catch (error) {
-            alert('error', error);
-        }
-    };
+    //         setImageBanner(imageConfig.Image(res.imageUrl));
+    //         setImageBannerDefault(imageConfig.Image(res.imageUrl));
+    //     } catch (error) {
+    //         alert('error', error);
+    //     }
+    // };
 
-    const handleFileUploadPoster = async (e) => {
-        const formData = new FormData();
-        formData.append('file', e.target.files[0]);
+    // const handleFileUploadPoster = async (e) => {
+    //     const formData = new FormData();
+    //     formData.append('file', e.target.files[0]);
 
-        try {
-            const res = await adminService.createImage(formData);
+    //     try {
+    //         const res = await adminService.createImage(formData);
 
-            setImagePoster(imageConfig.Image(res.imageUrl));
-            setImagePosterDefault(imageConfig.Image(res.imageUrl));
-        } catch (error) {
-            alert('error', error);
-        }
-    };
+    //         setImagePoster(imageConfig.Image(res.imageUrl));
+    //         setImagePosterDefault(imageConfig.Image(res.imageUrl));
+    //     } catch (error) {
+    //         alert('error', error);
+    //     }
+    // };
     //
 
     const handleCreateMovies = (e) => {
@@ -128,8 +130,8 @@ function ModalCreateMovies({ open, onClose, onCreateMovie }) {
         const newData = {
             ...dataMovies,
             categories: categoryId,
-            bannerImageUrl: imageBanner,
-            imageUrl: imagePoster,
+            // bannerImageUrl: imageBanner,
+            // imageUrl: imagePoster,
             startDate: startDate,
             endDate: endDate,
         };
@@ -144,14 +146,16 @@ function ModalCreateMovies({ open, onClose, onCreateMovie }) {
             language: '',
             director: '',
             trailerUrl: '',
+            imageUrl: '',
+            bannerImageUrl: '',
         });
-        setImageBanner('');
-        setImagePoster('');
+        // setImageBanner('');
+        // setImagePoster('');
         setEndDate('');
         setstartDate('');
         setcategoryId([]);
-        setImageBannerDefault('');
-        setImagePosterDefault('');
+        // setImageBannerDefault('');
+        // setImagePosterDefault('');
         handleClose();
     };
     return (
@@ -286,7 +290,7 @@ function ModalCreateMovies({ open, onClose, onCreateMovie }) {
                     autoFocus
                     onChange={handleInputChange}
                 /> */}
-                <TextField
+                {/* <TextField
                     margin="normal"
                     required
                     label={'Banner'}
@@ -308,7 +312,29 @@ function ModalCreateMovies({ open, onClose, onCreateMovie }) {
                     onChange={handleFileUploadPoster}
                 />
 
-                <img style={{ width: '50%', height: '50%' }} src={imagePosterDefault} alt="poster" />
+                <img style={{ width: '50%', height: '50%' }} src={imagePosterDefault} alt="poster" /> */}
+
+                <TextField
+                    margin="normal"
+                    required
+                    label={'Banner'}
+                    name="bannerImageUrl"
+                    value={dataMovies.bannerImageUrl}
+                    fullWidth
+                    autoFocus
+                    onChange={handleInputChange}
+                />
+
+                <TextField
+                    margin="normal"
+                    required
+                    label={'Poster'}
+                    value={dataMovies.imageUrl}
+                    name="imageUrl"
+                    fullWidth
+                    autoFocus
+                    onChange={handleInputChange}
+                />
 
                 <TextField
                     margin="normal"

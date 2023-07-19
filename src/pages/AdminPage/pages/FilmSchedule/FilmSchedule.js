@@ -27,6 +27,10 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 //
+//react- toast
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 10;
 const MenuProps = {
@@ -121,10 +125,12 @@ function FilmSchedule() {
         console.log(newData);
         try {
             const res = await adminService.createSchedule(newData);
-            alert('Thêm lịch chiếu thành công');
+            console.log(res);
+            toast.success('Thêm lịch chiếu thành công');
             setReload(!reload);
         } catch (err) {
             console.log('error', err);
+            toast.error('Thêm lịch chiếu không thành công');
         }
     };
 
@@ -134,10 +140,12 @@ function FilmSchedule() {
         if (window.confirm('Bạn có chắc chắn muốn xóa lịch chiếu này không?')) {
             try {
                 const res = await adminService.deleteSchedule(id);
-                alert('Xoas lịch chiếu thành công');
+                console.log(res);
+                toast.success('Xóa lịch chiếu thành công');
                 setReload(!reload);
             } catch (err) {
                 console.log('error', err);
+                toast.error('Xóa lịch chiếu không thành công');
             }
         }
     };
@@ -167,7 +175,8 @@ function FilmSchedule() {
         console.log(newData);
         try {
             const res = await adminService.updateSchedule(newData.id, newData);
-            alert('Sửa lịch chiếu thành công');
+            console.log(res);
+            toast.success('Sửa lịch chiếu thành công');
             setDataSchedule({
                 id: '',
                 filmId: '',
@@ -178,6 +187,7 @@ function FilmSchedule() {
             setReload(!reload);
         } catch (err) {
             console.log('error', err);
+            toast.error('Sửa lịch chiếu không thành công');
         }
     };
 

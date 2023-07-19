@@ -31,7 +31,10 @@ import ModalCreateMovies from '../../components/ModalCreateMovies/ModalCreateMov
 
 import adminService from '../../../../common/api/adminService';
 import Paging from '../../../../common/components/Pagination/pagination';
-import imageConfig from '../../../../common/api/imageConfig';
+// import imageConfig from '../../../../common/api/imageConfig';
+//react- toast
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 10;
@@ -63,10 +66,10 @@ function FilmManager() {
     const [categoryMovies, setCategoryMovies] = useState([]);
     const [categoryId, setcategoryId] = useState([]);
     const theme = useTheme();
-    const [imageBanner, setImageBanner] = useState('');
-    const [imagePoster, setImagePoster] = useState('');
-    const [imageBannerDefault, setImageBannerDefault] = useState('');
-    const [imagePosterDefault, setImagePosterDefault] = useState('');
+    // const [imageBanner, setImageBanner] = useState('');
+    // const [imagePoster, setImagePoster] = useState('');
+    // const [imageBannerDefault, setImageBannerDefault] = useState('');
+    // const [imagePosterDefault, setImagePosterDefault] = useState('');
 
     //
     const [dataMovies, setDataMovies] = useState({
@@ -81,6 +84,8 @@ function FilmManager() {
         language: '',
         startDate: '',
         trailerUrl: '',
+        imageUrl: '',
+        bannerImageUrl: '',
     });
 
     //open modal
@@ -120,10 +125,13 @@ function FilmManager() {
         console.log(newData);
         try {
             const respone = await adminService.createMovies(newData);
+            console.log(respone);
 
-            alert('thêm phim thành công');
+            toast.success('Thêm phim thành công');
+            setReload(!reload);
         } catch (err) {
             console.log('error', err);
+            toast.error('Có lỗi xảy ra!! Thử lại');
         }
     };
 
@@ -132,10 +140,12 @@ function FilmManager() {
         if (window.confirm('Bạn có chắc chắn muốn xóa phim này không?')) {
             try {
                 const res = await adminService.deleteMovies(id);
-                alert('Xóa phim thành công!');
+                console.log(res);
+                toast.success('Xóa phim thành công');
                 setReload(!reload);
             } catch (err) {
                 console.log('error', err);
+                toast.error('Có lỗi xảy ra!! Thử lại');
             }
         }
     };
@@ -154,12 +164,14 @@ function FilmManager() {
             director: newData.director,
             endDate: newData.endDate,
             startDate: newData.startDate,
+            imageUrl: newData.imageUrl,
+            bannerImageUrl: newData.bannerImageUrl,
         };
         setDataMovies(data);
-        setImageBannerDefault(newData.bannerImageUrl);
-        setImageBanner(newData.bannerImageUrl);
-        setImagePosterDefault(newData.imageUrl);
-        setImagePoster(newData.imageUrl);
+        // setImageBannerDefault(newData.bannerImageUrl);
+        // setImageBanner(newData.bannerImageUrl);
+        // setImagePosterDefault(newData.imageUrl);
+        // setImagePoster(newData.imageUrl);
 
         setShow(true);
     };
@@ -185,33 +197,33 @@ function FilmManager() {
     };
 
     //file upload
-    const handleFileUploadBanner = async (e) => {
-        const formData = new FormData();
-        formData.append('file', e.target.files[0]);
+    // const handleFileUploadBanner = async (e) => {
+    //     const formData = new FormData();
+    //     formData.append('file', e.target.files[0]);
 
-        try {
-            const res = await adminService.createImage(formData);
-            console.log('succes');
-            setImageBanner(imageConfig.Image(res.imageUrl));
-            setImageBannerDefault(imageConfig.Image(res.imageUrl));
-        } catch (error) {
-            alert('error', error);
-        }
-    };
+    //     try {
+    //         const res = await adminService.createImage(formData);
+    //         console.log('succes');
+    //         setImageBanner(imageConfig.Image(res.imageUrl));
+    //         setImageBannerDefault(imageConfig.Image(res.imageUrl));
+    //     } catch (error) {
+    //         alert('error', error);
+    //     }
+    // };
 
-    const handleFileUploadPoster = async (e) => {
-        const formData = new FormData();
-        formData.append('file', e.target.files[0]);
+    // const handleFileUploadPoster = async (e) => {
+    //     const formData = new FormData();
+    //     formData.append('file', e.target.files[0]);
 
-        try {
-            const res = await adminService.createImage(formData);
-            console.log('succes');
-            setImagePoster(imageConfig.Image(res.imageUrl));
-            setImagePosterDefault(imageConfig.Image(res.imageUrl));
-        } catch (error) {
-            alert('error', error);
-        }
-    };
+    //     try {
+    //         const res = await adminService.createImage(formData);
+    //         console.log('succes');
+    //         setImagePoster(imageConfig.Image(res.imageUrl));
+    //         setImagePosterDefault(imageConfig.Image(res.imageUrl));
+    //     } catch (error) {
+    //         alert('error', error);
+    //     }
+    // };
     //
 
     //handle input
@@ -227,13 +239,14 @@ function FilmManager() {
         const newData = {
             ...dataMovies,
             categories: categoryId,
-            bannerImageUrl: imageBanner,
-            imageUrl: imagePoster,
+            // bannerImageUrl: imageBanner,
+            // imageUrl: imagePoster,
         };
         console.log(newData);
         try {
             const res = adminService.updateMovies(newData.id, newData);
-            alert('Sửa thông tin phim thành công');
+            console.log(res);
+            toast.success('Sửa thông tin phim thành công');
             setDataMovies({
                 id: '',
                 actor: '',
@@ -247,21 +260,22 @@ function FilmManager() {
                 startDate: '',
                 trailerUrl: '',
             });
-            setImageBanner('');
-            setImagePoster('');
+            // setImageBanner('');
+            // setImagePoster('');
             setcategoryId([]);
-            setImageBannerDefault('');
-            setImagePosterDefault('');
+            // setImageBannerDefault('');
+            // setImagePosterDefault('');
             handleCloseModal();
             setReload(!reload);
         } catch (err) {
-            alert('Sửa thông tin phim không thành công');
+            console.log('error:', err);
+            toast.error('Có lỗi xảy ra!! Thử lại');
         }
     };
 
     return (
         <div className={cx('wrapper')}>
-            <h2> Quản Lý Phim Đang Chiếu</h2>
+            <h2> Quản Lý Phim Sắp Chiếu</h2>
 
             <div className={cx('fillter')}>
                 {/* <div className={cx('input')}>
@@ -445,7 +459,7 @@ function FilmManager() {
                         onChange={handleInputChange}
                     />
 
-                    <TextField
+                    {/* <TextField
                         margin="normal"
                         required
                         label={'Banner'}
@@ -466,7 +480,30 @@ function FilmManager() {
                         autoFocus
                         onChange={handleFileUploadPoster}
                     />
-                    <img style={{ width: '50%' }} src={imagePosterDefault} alt="poster" />
+                    <img style={{ width: '50%' }} src={imagePosterDefault} alt="poster" /> */}
+
+                    <TextField
+                        margin="normal"
+                        required
+                        label={'Banner'}
+                        name="bannerImageUrl"
+                        // type="file"
+                        value={dataMovies.bannerImageUrl}
+                        fullWidth
+                        autoFocus
+                        onChange={handleInputChange}
+                    />
+
+                    <TextField
+                        margin="normal"
+                        required
+                        label={'Poster'}
+                        value={dataMovies.imageUrl}
+                        name="imageUrl"
+                        fullWidth
+                        autoFocus
+                        onChange={handleInputChange}
+                    />
 
                     <TextField
                         margin="normal"
@@ -489,7 +526,6 @@ function FilmManager() {
                 </DialogActions>
             </Dialog>
             {/*  */}
-
             <ModalCreateMovies open={open} onClose={handleClose} onCreateMovie={handleCreateMovies} />
         </div>
     );

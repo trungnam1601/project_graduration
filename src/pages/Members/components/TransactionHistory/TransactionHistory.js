@@ -51,14 +51,7 @@ function TransactionHistory() {
                         <tr key={item.id}>
                             <td>{item.id}</td>
                             <td>
-                                <div style={{ display: 'flex' }}>
-                                    <img
-                                        style={{ width: 100, height: 120, marginRight: 10 }}
-                                        src={item.schedule.filmDTO.imageUrl}
-                                        alt="phim"
-                                    />
-                                    <p>{item.schedule.film}</p>
-                                </div>
+                                <p>{item.schedule.film}</p>
                             </td>
                             <td>
                                 <span>

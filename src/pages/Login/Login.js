@@ -5,6 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { TextField } from '@mui/material';
 import authService from '../../common/api/authService';
 
+//react- toast
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -29,13 +33,17 @@ function Login() {
 
         try {
             const respone = await authService.login(username, password);
+
             // console.log(respone);
             localStorage.setItem('token', respone.accessToken);
             localStorage.setItem('user', respone.username);
             localStorage.setItem('role', respone.roles);
+            toast.success('Đăng nhập thành công');
             navigate('/');
         } catch (err) {
             console.log('error', err);
+            setPassword('');
+            toast.error('Có lỗi xảy ra!! Thử lại');
         }
     };
 

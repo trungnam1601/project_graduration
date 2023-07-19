@@ -18,6 +18,10 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
+//react- toast
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const cx = classNames.bind(styles);
 function FilmCategory() {
     const [categoryFilm, setCategoryFilm] = useState([]);
@@ -60,10 +64,12 @@ function FilmCategory() {
     const handleCreateCategory = async (newData) => {
         try {
             const res = await adminService.createMoviesCategory(newData);
-            alert('thêm thể loại phim thành công');
+            console.log(res);
+            toast.success('Thêm thể loại phim thành công');
             setReload(!reload);
         } catch (err) {
             console.log('error', err);
+            toast.error('Có lỗi xảy ra!! Thử lại');
         }
     };
 
@@ -72,10 +78,12 @@ function FilmCategory() {
         if (window.confirm('Bạn có chắc chắn muốn xóa thể loại phim này không?')) {
             try {
                 const res = await adminService.deleteMoviesCategory(id);
-                alert('Xóa thành công');
+                console.log(res);
+                toast.success('Xóa thành công');
                 setReload(!reload);
             } catch (err) {
                 console.log('error', err);
+                toast.error('Có lỗi xảy ra!! Thử lại');
             }
         }
     };
@@ -99,7 +107,8 @@ function FilmCategory() {
 
         try {
             const res = await adminService.updateCategory(newData.id, newData);
-            alert('Sửa thể loại phim thành công');
+            console.log(res);
+            toast.success('Sửa thể loại phim thành công');
             setDataCategory({
                 categoryName: '',
                 description: '',
@@ -108,6 +117,7 @@ function FilmCategory() {
             setReload(!reload);
         } catch (err) {
             console.log('error', err);
+            toast.error('Có lỗi xảy ra!! Thử lại');
         }
     };
 

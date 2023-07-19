@@ -4,14 +4,14 @@ import { Button, Typography, Container } from '@mui/material';
 
 import TextField from '@mui/material/TextField';
 import publicService from '../../../../common/api/publicService';
-import ModalSuccess from '../../../../common/components/ModalSuccess/ModalSuccess';
+
+//react- toast
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function InforMembers() {
     const [dataInfor, setDataInfor] = useState({ id: '', fullName: '', phone: '', address: '', birthday: '' });
     const [reload, setReload] = useState(false);
-    const [open, setOpen] = useState(false);
-    const handleClose = () => setOpen(false);
-    const handleOpen = () => setOpen(true);
 
     useEffect(() => {
         const handleGetInforUser = async () => {
@@ -50,10 +50,12 @@ function InforMembers() {
         // console.log(newData, dataInfor.id);
         try {
             const res = await publicService.updateInforUser(newData.id, newData);
-            handleOpen();
+            console.log(res);
+            toast.success('Cập nhật thông tin thành công');
             setReload(!reload);
         } catch (err) {
             console.log('Error', err);
+            toast.error('Có lỗi xảy ra!! Thử lại');
         }
     };
     return (
@@ -112,7 +114,6 @@ function InforMembers() {
             >
                 Cập Nhật
             </Button>
-            <ModalSuccess open={open} onClose={handleClose} text={'Cập nhật thông tin thành công'} />
         </Container>
     );
 }

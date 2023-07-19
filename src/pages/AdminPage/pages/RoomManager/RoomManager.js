@@ -10,7 +10,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import adminService from '../../../../common/api/adminService';
 import Paging from '../../../../common/components/Pagination/pagination';
-import { useNavigate } from 'react-router-dom';
+
+//react- toast
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const cx = classNames.bind(styles);
 function RoomManager() {
@@ -48,11 +51,13 @@ function RoomManager() {
         // console.log(roomName);
         try {
             const res = await adminService.createCinemaRoom(roomName);
-            // console.log(res);
-            alert('Thêm mới phòng chiếu thành công');
+            console.log(res);
+            toast.success('Thêm mới phòng chiếu thành công');
             setDataInput('');
+            setReload(!reload);
         } catch (err) {
             console.log('error', err);
+            toast.error('Có lỗi xảy ra!! Thử lại');
         }
     };
 
@@ -61,12 +66,13 @@ function RoomManager() {
         if (window.confirm('Bạn có chắc chắn muốn xóa phòng chiếu này không?')) {
             try {
                 const res = await adminService.deleteCinemaRoom(id);
-                // console.log(res);
-                alert('Xóa phòng chiếu thành công');
+                console.log(res);
+                toast.success('Xóa phòng chiếu thành công');
                 setDataInput('');
                 setReload(!reload);
             } catch (err) {
                 console.log('err', err);
+                toast.error('Có lỗi xảy ra!! Thử lại');
             }
         }
     };
@@ -83,11 +89,12 @@ function RoomManager() {
         try {
             const res = await adminService.updateCinemaRoom(id, dataUpdate);
             console.log(res);
-            alert('Sửa thông tin phòng chiếu thành công');
+            toast.success('Sửa thông tin phòng chiếu thành công');
             setDataInput('');
             setReload(!reload);
         } catch (err) {
             console.log('error', err);
+            toast.error('Có lỗi xảy ra!! Thử lại');
         }
     };
 

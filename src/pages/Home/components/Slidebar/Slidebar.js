@@ -35,7 +35,7 @@ function Slidebar() {
                 const respone = await publicService.getMoviesList(movieCategory.upcoming, 0, 10);
                 // console.log(respone.results);
 
-                setMovieItems(respone.content.slice(5, 10));
+                setMovieItems(respone.content.slice(0, 5));
             } catch (error) {
                 console.log('error', error);
             }

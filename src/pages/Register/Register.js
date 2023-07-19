@@ -5,6 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { TextField } from '@mui/material';
 import authService from '../../common/api/authService';
 
+//react- toast
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function Register() {
     const navigate = useNavigate();
     const [dataRegister, setDataRegister] = useState({
@@ -31,10 +35,11 @@ function Register() {
         try {
             const res = await authService.register(newData);
             console.log(res);
-            alert('Đăng ký tài khoản thành công');
+            toast.success('Đăng ký tài khoản thành công');
             navigate('/login');
         } catch (err) {
             console.log('error', err);
+            toast.error('Có lỗi xảy ra!! Thử lại');
         }
     };
 
