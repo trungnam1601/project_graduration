@@ -11,26 +11,74 @@
     justify-content: space-between;
     padding: 30px 0;
     margin: 0 4rem;
+    @include tablet {
+        flex-wrap: wrap;
+    }
+    @include mobile {
+        display: block;
+        margin: 0 1rem;
+        padding: 10px 0 30px;
+    }
+}
+
+.customer {
+    @include tablet {
+        width: 100%;
+        text-align: center;
+        align-items: center;
+        padding: 10px 0 50px;
+    }
+}
+
+.about li {
+    @include mobile {
+        display: block;
+        border-bottom: 1px solid #e1e1e1;
+        padding: 8px 0px;
+        width: 100%;
+    }
+}
+
+.about ul {
+    @include mobile {
+        padding-left: 0;
+    }
 }
 
 .about h3,
 .customer h3,
 .contact h3 {
     font-size: 1.8rem;
-    font-weight: 700;
+    font-weight: 600;
     margin-bottom: 10px;
+    @include mobile {
+        display: none;
+    }
 }
 
 .about h3 {
     padding-left: 19px;
 }
 
+.contact {
+    @include mobile {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+}
+
 .contact ul {
     display: flex;
     padding: 0;
     margin-bottom: 20px;
+    @include mobile {
+        margin-top: 30px;
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 .contact ul li .icon img {
-    background-color: #fff;
+    background-color: #000;
 }

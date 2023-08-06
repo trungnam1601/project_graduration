@@ -10,6 +10,9 @@
     list-style: none;
     font-weight: 600;
     font-size: 1.8rem;
+    @include mobile {
+        font-size: 1.6rem;
+    }
 
     &::before {
         position: absolute;

@@ -46,35 +46,36 @@ function Footer() {
 
                 <div className={cx('contact')}>
                     <h3>Kết Nối Với Chúng Tôi</h3>
+
                     <ul>
                         <li>
                             <Link className={cx('icon')} target="_blank">
-                                <img src={icon.facebook} alt="facebook" />
+                                <img src={icon.facebook} width={40} height={40} alt="facebook" />
                             </Link>
                         </li>
                         <li>
                             <Link className={cx('icon')} target="_blank">
-                                <img src={icon.youtube} alt="youtube" />
+                                <img src={icon.youtube} width={40} height={40} alt="youtube" />
                             </Link>
                         </li>
                         <li>
                             <Link className={cx('icon')} target="_blank">
-                                <img src={icon.instagram} alt="instagram" />
+                                <img src={icon.instagram} width={40} height={40} alt="instagram" />
                             </Link>
                         </li>
                         <li>
                             <Link className={cx('icon')} target="_blank">
-                                <img src={icon.zalo} alt="zalo" />
+                                <img src={icon.zalo} width={40} height={40} alt="zalo" />
                             </Link>
                         </li>
                     </ul>
+
                     <div>
                         <Link to="http://online.gov.vn/Home/WebDetails/4519" target="_blank">
                             <img alt="permission" src={icon.permission} />
                         </Link>
                     </div>
                 </div>
-
                 <div className={cx('customer')}>
                     <h3>Thông Tin Liên Hệ</h3>
                     <p>

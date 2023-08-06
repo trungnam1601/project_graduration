@@ -39,24 +39,10 @@ function MovieCatalog({ type, cate }) {
     }, [type, page]);
     return (
         <>
-            {/* <MovieSearch keyword={keyword} />
-            {movieItems.length === 0 ? (
-                <span className={cx('movie-not_found')}>{`Not found "${keyword}" movie!`}</span>
-            ) : (
-                <div className={cx('grid-item')}>
-                    <Grid container spacing={3}>
-                        {movieItems.map((item, index) => (
-                            <Grid xs={2} sm={4} md={2} item key={index}>
-                                <CardItem title={item.filmName} img={item.imageUrl} id={item.id} />
-                            </Grid>
-                        ))}
-                    </Grid>
-                </div>
-            )} */}
             <div className={cx('grid-item')}>
                 <Grid container rowSpacing={10} columnSpacing={{ xs: 2, sm: 2, md: 3 }}>
                     {movieItems.map((item, index) => (
-                        <Grid md={2} xs={12} sm={4} item key={item.id}>
+                        <Grid lg={2} md={3} xs={6} sm={4} item key={item.id}>
                             <CardItem
                                 title={item.filmName}
                                 img={item.imageUrl}
@@ -74,49 +60,5 @@ function MovieCatalog({ type, cate }) {
         </>
     );
 }
-
-// const MovieSearch = (props) => {
-//     const navigate = useNavigate();
-//     const [keyword, setKeyword] = useState(props.keyword ? props.keyword : '');
-
-//     // const onClickButtonSearch = () => {
-//     //     if (keyword.trim().length > 0) {
-//     //         navigate(`/${category[props.category]}/search/${keyword}`);
-//     //       // const debouncedValue = useDebounce(keyword, 500); }
-//     // };
-//     const onClickButtonSearch = useCallback(() => {
-//         if (keyword.trim().length > 0) {
-//             navigate(`/movie/search/${keyword}`);
-//         }
-//     }, [keyword, navigate]);
-//     useEffect(() => {
-//         const enterEvent = (e) => {
-//             e.preventDefault();
-//             if (e.keyCode === 13) {
-//                 onClickButtonSearch();
-//             }
-//         };
-//         document.addEventListener('keyup', enterEvent);
-
-//         return () => {
-//             document.removeEventListener('keyup', enterEvent);
-//         };
-//     }, [keyword, onClickButtonSearch]);
-
-//     return (
-//         <div className={cx('wrapper')}>
-//             <input
-//                 className={cx('input-search')}
-//                 type="text"
-//                 placeholder="Enter keyword"
-//                 value={keyword}
-//                 onChange={(e) => setKeyword(e.target.value)}
-//             />
-//             <Button size="small" className={cx('btn')} onClick={onClickButtonSearch}>
-//                 Search
-//             </Button>
-//         </div>
-//     );
-// };
 
 export default MovieCatalog;

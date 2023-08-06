@@ -8,6 +8,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { Grid } from '@mui/material';
 
 import { Table } from 'react-bootstrap';
 import { Button } from '@mui/material';
@@ -81,44 +82,49 @@ function UserManager() {
             <h2> Quản Lý Người Dùng</h2>
 
             <div className={cx('fillter')}>
-                {/* <div className={cx('input')}>
-                    <input placeholder="Tìm Kiếm Người Dùng" />
-                </div> */}
-                <FormControl sx={{ width: '300px' }}>
-                    <InputLabel id="demo-simple-select-label">Quyền hạn</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-multiple-name"
-                        value={role}
-                        onChange={handleChange}
-                        label="Quyền hạn"
-                        MenuProps={MenuProps}
-                    >
-                        {roleData.map((item) => (
-                            <MenuItem key={item.id} value={item.value}>
-                                {item.value}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-                <TextField
-                    margin="normal"
-                    required
-                    name="username"
-                    value={fillterUser.username}
-                    label={'username'}
-                    sx={{ width: '300px', mt: -0.1 }}
-                    onChange={handleInputChange}
-                />
-
-                <div className={cx('button')}>
-                    <Button variant="contained" className={cx('add', 'btn')} onClick={handlefillterUser}>
-                        Tìm kiếm
-                    </Button>
-                </div>
+                <Grid container spacing={1}>
+                    <Grid lg={6} md={6} sm={6} xs={12} item sx={{ color: '#000' }}>
+                        <FormControl sx={{ width: { lg: 350, md: 300, sm: 180, xs: '100%' }, mb: 2 }}>
+                            <InputLabel id="demo-simple-select-label">Quyền hạn</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-multiple-name"
+                                value={role}
+                                onChange={handleChange}
+                                label="Quyền hạn"
+                                MenuProps={MenuProps}
+                            >
+                                {roleData.map((item) => (
+                                    <MenuItem key={item.id} value={item.value}>
+                                        {item.value}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </Grid>
+                    <Grid lg={4} md={4} sm={4} xs={12} item sx={{ color: '#000' }}>
+                        <TextField
+                            margin="normal"
+                            required
+                            name="username"
+                            value={fillterUser.username}
+                            label={'username'}
+                            sx={{ mt: -0.1 }}
+                            fullWidth
+                            onChange={handleInputChange}
+                        />
+                    </Grid>
+                    <Grid lg={4} md={4} sm={4} xs={12} item sx={{ color: '#000' }}>
+                        <div className={cx('button')}>
+                            <Button variant="contained" className={cx('add', 'btn')} onClick={handlefillterUser}>
+                                Tìm kiếm
+                            </Button>
+                        </div>
+                    </Grid>
+                </Grid>
             </div>
 
-            <Table striped bordered hover>
+            <Table striped bordered hover condensed responsive>
                 <thead>
                     <tr>
                         <th>id</th>

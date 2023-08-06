@@ -26,6 +26,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+
 //
 //react- toast
 import { toast } from 'react-toastify';
@@ -203,7 +204,7 @@ function FilmSchedule() {
             <h2> Quản Lý Lịch Chiếu</h2>
 
             <div className={cx('fillter')}>
-                <FormControl sx={{ width: '650px' }}>
+                <FormControl sx={{ width: { lg: 650, md: 280, sm: 280, xs: '100%' }, mb: 2 }}>
                     <InputLabel id="demo-simple-select-label">Phòng chiếu</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
@@ -222,16 +223,13 @@ function FilmSchedule() {
                 </FormControl>
 
                 <div className={cx('button')}>
-                    {/* <Button variant="contained" className={cx('find', 'btn')}>
-                        Tìm kiếm
-                    </Button> */}
                     <Button variant="contained" className={cx('add', 'btn')} onClick={handleOpenModal}>
                         Thêm mới
                     </Button>
                 </div>
             </div>
 
-            <Table striped bordered hover>
+            <Table striped bordered hover condensed responsive>
                 <thead>
                     <tr>
                         <th>Mã Lịch Chiếu</th>

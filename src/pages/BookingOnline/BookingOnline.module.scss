@@ -20,16 +20,34 @@
             justify-content: space-evenly;
             color: #000;
             padding: 2rem 0;
+            flex-wrap: wrap;
+
             .seat-status {
                 img {
                     width: 40px;
                     height: 40px;
                     margin-right: 10px;
+                    margin-bottom: 1rem;
+                    @include tablet {
+                        margin-right: 5px;
+                    }
+                }
+                span {
+                    @include tablet {
+                        font-size: 1.3rem;
+                    }
                 }
             }
         }
 
         .main-content {
+            overflow-x: scroll;
+            img {
+                display: block;
+                max-width: 100%;
+                height: auto;
+                overflow-x: scroll;
+            }
             .list-seat {
                 width: 600px;
                 align-items: center;

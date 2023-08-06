@@ -295,7 +295,7 @@ function AdminPage() {
                 </div>
             </div>
 
-            <Table striped bordered hover>
+            <Table striped bordered hover condensed responsive>
                 <thead>
                     <tr>
                         <th>Mã Phim</th>

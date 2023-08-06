@@ -128,7 +128,7 @@ function RoomManager() {
                 </div>
             </div>
 
-            <Table striped bordered hover>
+            <Table striped bordered hover condensed responsive>
                 <thead>
                     <tr>
                         <th>Mã Phòng Chiếu</th>

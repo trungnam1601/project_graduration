@@ -16,15 +16,28 @@
         width: 100%;
         font-size: 1.4rem;
         position: relative;
+        @include mobile {
+            flex-direction: column;
+        }
 
         ul {
             display: flex;
             width: 90%;
             justify-content: space-evenly;
+            @include mobile {
+                display: block;
+                flex-direction: column;
+                justify-content: center;
+                width: 100%;
+            }
             .item {
                 display: inline-block;
                 margin-right: 1.6rem;
                 width: 30%;
+                @include mobile {
+                    display: block;
+                    width: 100%;
+                }
                 .product-detail {
                     .infor {
                         color: #ccc;

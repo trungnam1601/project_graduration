@@ -35,7 +35,8 @@ function TransactionHistory() {
             <Typography component="h1" variant="h5" sx={{ fontSize: 30, color: '#000', mb: 3 }}>
                 Lịch Sử Giao Dịch
             </Typography>
-            <Table striped bordered hover>
+
+            <Table striped bordered hover condensed responsive>
                 <thead>
                     <tr>
                         <th>Mã Hóa Đơn</th>
@@ -77,6 +78,7 @@ function TransactionHistory() {
                     ))}
                 </tbody>
             </Table>
+
             <div>
                 <Paging onPageClick={handlePaging} page={page + 1} totalPage={totalPage} />
             </div>

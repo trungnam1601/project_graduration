@@ -2,25 +2,35 @@
 .wrapper {
     margin: 8rem 9rem 4rem 9rem;
 
+    @include tablet {
+        margin: 8rem 3rem 0 3rem;
+    }
+    @include mobile {
+        margin: 8rem 1rem 0 1rem;
+    }
+
     .tab {
         color: #fff;
         font-size: 1.8rem;
         text-transform: capitalize;
+        @include mobile {
+            font-size: 1.4rem;
+        }
     }
 
     .tab-paine {
         margin-top: 2rem;
         background-color: #fff;
         color: #000;
-        .btn-next {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background-color: $primary-color;
-            text-transform: capitalize;
-            color: $text-color;
-            font-size: 1.2rem;
-            padding: 10px 18px;
-        }
+        // .btn-next {
+        //     position: absolute;
+        //     top: 20px;
+        //     right: 20px;
+        //     background-color: $primary-color;
+        //     text-transform: capitalize;
+        //     color: $text-color;
+        //     font-size: 1.2rem;
+        //     padding: 10px 18px;
+        // }
     }
 }

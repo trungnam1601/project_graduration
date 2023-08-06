@@ -114,7 +114,7 @@ function BillManager() {
             <h2> Quản Lý Hóa Đơn</h2>
 
             <div className={cx('fillter')}>
-                <FormControl sx={{ width: '260px' }}>
+                <FormControl sx={{ width: { lg: 260, md: 230, sm: 220, xs: '100%' }, mb: 2 }}>
                     <InputLabel id="demo-simple-select-label">Quyền hạn</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
@@ -131,7 +131,7 @@ function BillManager() {
                         ))}
                     </Select>
                 </FormControl>
-                <FormControl sx={{ width: '260px' }}>
+                <FormControl sx={{ width: { lg: 260, md: 230, sm: 220, xs: '100%' }, mb: 2 }}>
                     <InputLabel id="demo-simple-select-label">Tài Khoản</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
@@ -152,7 +152,7 @@ function BillManager() {
                         ))}
                     </Select>
                 </FormControl>
-                <FormControl sx={{ width: '260px' }}>
+                <FormControl sx={{ width: { lg: 260, md: 230, sm: 220, xs: '100%' }, mb: 2 }}>
                     <InputLabel id="demo-simple-select-label">Phim đang chiếu</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
@@ -189,7 +189,7 @@ function BillManager() {
                 </div>
             </div>
 
-            <Table striped bordered hover>
+            <Table striped bordered hover condensed responsive>
                 <thead>
                     <tr>
                         <th>Mã Hóa Đơn</th>

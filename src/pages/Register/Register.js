@@ -64,70 +64,76 @@ function Register() {
                         Đăng Ký Tài Khoản
                     </Typography>
                     <Box component="form" noValidate sx={{ mt: 2 }}>
-                        <TextField
-                            name="fullName"
-                            value={dataRegister.fullName}
-                            margin="normal"
-                            required
-                            label={'Họ và Tên'}
-                            sx={{ width: 235 }}
-                            onChange={handleInputChange}
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            name="phone"
-                            value={dataRegister.phone}
-                            label={'Số Điện Thoại'}
-                            sx={{ width: 235, ml: 2 }}
-                            onChange={handleInputChange}
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            name="birthday"
-                            value={dataRegister.birthday}
-                            label={'Ngày Sinh'}
-                            sx={{ width: 235 }}
-                            type={'date'}
-                            onChange={handleInputChange}
-                        />
-                        <TextField
-                            margin="normal"
-                            name="address"
-                            value={dataRegister.address}
-                            required
-                            label={'Địa Chỉ'}
-                            sx={{ width: 235, ml: 2 }}
-                            onChange={handleInputChange}
-                        />
-                        <TextField
-                            name="username"
-                            value={dataRegister.username}
-                            margin="normal"
-                            required
-                            label={'Tên Đăng Nhập'}
-                            sx={{ width: 235 }}
-                            onChange={handleInputChange}
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            name="password"
-                            value={dataRegister.password}
-                            label={'Mật Khẩu'}
-                            sx={{ width: 235, ml: 2 }}
-                            type={'password'}
-                            onChange={handleInputChange}
-                        />
-
-                        {/* 
-                        <Input label={'Họ và Tên'} width={235} />
-                        <Input label={'Số Điện Thoại'} width={235} ml={2} />
-                        <Input label={'Ngày Sinh'} width={235} type={'date'} />
-                        <Input label={'Địa Chỉ'} width={235} ml={2} />
-                        <Input label={'Tên Đăng Nhập'} width={235} />
-                        <Input label={'Mật Khẩu'} type={'password'} width={235} ml={2} /> */}
+                        <Grid container spacing={1}>
+                            <Grid sm={6} xs={12} md={6} lg={6} item sx={{ color: '#000' }}>
+                                <TextField
+                                    name="fullName"
+                                    value={dataRegister.fullName}
+                                    margin="normal"
+                                    required
+                                    label={'Họ và Tên'}
+                                    fullWidth
+                                    onChange={handleInputChange}
+                                />
+                            </Grid>
+                            <Grid sm={6} xs={12} md={6} lg={6} item sx={{ color: '#000' }}>
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    name="phone"
+                                    value={dataRegister.phone}
+                                    label={'Số Điện Thoại'}
+                                    fullWidth
+                                    onChange={handleInputChange}
+                                />
+                            </Grid>
+                            <Grid sm={6} xs={12} md={6} lg={6} item sx={{ color: '#000' }}>
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    name="birthday"
+                                    value={dataRegister.birthday}
+                                    label={'Ngày Sinh'}
+                                    type={'date'}
+                                    fullWidth
+                                    onChange={handleInputChange}
+                                />
+                            </Grid>
+                            <Grid sm={6} xs={12} md={6} lg={6} item sx={{ color: '#000' }}>
+                                <TextField
+                                    margin="normal"
+                                    name="address"
+                                    value={dataRegister.address}
+                                    required
+                                    label={'Địa Chỉ'}
+                                    fullWidth
+                                    onChange={handleInputChange}
+                                />
+                            </Grid>
+                            <Grid sm={6} xs={12} md={6} lg={6} item sx={{ color: '#000' }}>
+                                <TextField
+                                    name="username"
+                                    value={dataRegister.username}
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    label={'Tên Đăng Nhập'}
+                                    onChange={handleInputChange}
+                                />
+                            </Grid>
+                            <Grid sm={6} xs={12} md={6} lg={6} item sx={{ color: '#000' }}>
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    name="password"
+                                    value={dataRegister.password}
+                                    label={'Mật Khẩu'}
+                                    type={'password'}
+                                    fullWidth
+                                    onChange={handleInputChange}
+                                />
+                            </Grid>
+                        </Grid>
 
                         <Button
                             type="submit"

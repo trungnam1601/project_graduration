@@ -4,6 +4,7 @@ import { Button, Typography, Container } from '@mui/material';
 
 import TextField from '@mui/material/TextField';
 import publicService from '../../../../common/api/publicService';
+import { Grid } from '@mui/material';
 
 //react- toast
 import { toast } from 'react-toastify';
@@ -63,48 +64,57 @@ function InforMembers() {
             <Typography component="h1" variant="h5" sx={{ fontSize: 20, color: '#000' }}>
                 Thông Tin Tài Khoản
             </Typography>
-
-            <TextField
-                margin="normal"
-                required
-                name="fullName"
-                value={dataInfor.fullName}
-                label={'Họ Và Tên'}
-                fullWidth
-                sx={{ width: 500 }}
-                onChange={handleInputChange}
-            />
-            <TextField
-                margin="normal"
-                required
-                name="phone"
-                value={dataInfor.phone}
-                label={'Số Điện Thoại'}
-                fullWidth
-                sx={{ width: 500, ml: 2 }}
-                onChange={handleInputChange}
-            />
-            <TextField
-                margin="normal"
-                required
-                name="birthday"
-                value={dataInfor.birthday}
-                label={'Ngày Sinh'}
-                type={'date'}
-                fullWidth
-                sx={{ width: 500 }}
-                onChange={handleInputChange}
-            />
-            <TextField
-                margin="normal"
-                required
-                name="address"
-                value={dataInfor.address}
-                label={'Địa chỉ'}
-                fullWidth
-                sx={{ width: 500, ml: 2 }}
-                onChange={handleInputChange}
-            />
+            <Grid container spacing={1}>
+                <Grid lg={6} md={6} sm={6} xs={12} item sx={{ color: '#000' }}>
+                    <TextField
+                        margin="normal"
+                        required
+                        name="fullName"
+                        value={dataInfor.fullName}
+                        label={'Họ Và Tên'}
+                        fullWidth
+                        // sx={{ width: 500 }}
+                        onChange={handleInputChange}
+                    />
+                </Grid>
+                <Grid item lg={6} md={6} sm={6} xs={12} sx={{ color: '#000' }}>
+                    <TextField
+                        margin="normal"
+                        required
+                        name="phone"
+                        value={dataInfor.phone}
+                        label={'Số Điện Thoại'}
+                        fullWidth
+                        // sx={{ width: 500, ml: 2 }}
+                        onChange={handleInputChange}
+                    />
+                </Grid>
+                <Grid item lg={6} md={6} sm={6} xs={12} sx={{ color: '#000' }}>
+                    <TextField
+                        margin="normal"
+                        required
+                        name="birthday"
+                        value={dataInfor.birthday}
+                        label={'Ngày Sinh'}
+                        type={'date'}
+                        fullWidth
+                        // sx={{ width: 500 }}
+                        onChange={handleInputChange}
+                    />
+                </Grid>
+                <Grid item lg={6} md={6} sm={6} xs={12} sx={{ color: '#000' }}>
+                    <TextField
+                        margin="normal"
+                        required
+                        name="address"
+                        value={dataInfor.address}
+                        label={'Địa chỉ'}
+                        fullWidth
+                        // sx={{ width: 500, ml: 2 }}
+                        onChange={handleInputChange}
+                    />
+                </Grid>
+            </Grid>
 
             <Button
                 variant="contained"

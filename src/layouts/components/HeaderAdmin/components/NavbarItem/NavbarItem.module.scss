@@ -7,6 +7,9 @@
     padding: 10px 0;
     margin: 0 20px;
     color: #e5e7fd;
+    @include mobile {
+        font-size: 1.4rem;
+    }
 
     &::after {
         content: '';
