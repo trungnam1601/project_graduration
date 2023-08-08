@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 // const BASE_URL = 'http://contabo.foxcode.site:8087';
-const BASE_URL = 'http://localhost:8087';
+// const BASE_URL = 'http://localhost:8087';
+const BASE_URL = 'http://nammt.io.vn:8087';
 
 const axiosClient = axios.create({
     baseURL: BASE_URL,
