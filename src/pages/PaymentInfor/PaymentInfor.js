@@ -68,7 +68,6 @@ function PaymentInfor() {
         } catch (error) {
             console.log('error', error);
         }
-        // navigate('/');
     };
 
     return (

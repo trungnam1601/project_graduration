@@ -8,13 +8,37 @@ import DetailMovie from '../../../pages/BookingOnline/components/DetailMovie/Det
 import { Table } from 'react-bootstrap';
 import { Button } from '@mui/material';
 import { SeatContext } from '../../../context/SeatContext';
-import { Link } from 'react-router-dom';
+import publicService from '../../api/publicService';
+import { useNavigate } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+
+//react- toast
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const cx = classNames.bind(styles);
 function PaymentContent({ poster, filmName, ageAllowed, startTime, roomName, date, id }) {
     const { totalPrice, selectedSeats } = useContext(SeatContext);
-    const link = '/thong-tin-thanh-toan/' + id;
-
+    const navigate = useNavigate();
+    // const link = '/thong-tin-thanh-toan/' + id;
+    const handleBookingTicket = async () => {
+        const newData = {
+            drinkIds: ['string'],
+            price: totalPrice,
+            scheduleId: id,
+            seatCode: selectedSeats.map((seat) => seat.tenGhe).join(','),
+            seatType: 'VIP',
+        };
+        console.log(newData);
+        try {
+            const res = await publicService.createOrderSeat(newData);
+            console.log(res);
+            toast.success('Đặt vé thành công');
+            navigate('/');
+        } catch (error) {
+            console.log('error', error);
+        }
+    };
     return (
         <div className={cx('wrapper')}>
             <div className={cx('format-bg-top')} />
@@ -71,10 +95,14 @@ function PaymentContent({ poster, filmName, ageAllowed, startTime, roomName, dat
                     </li>
                 </ul>
 
-                <Button className={cx('btn-next')}>
+                {/* <Button className={cx('btn-next')}>
                     <Link className={cx('link-next')} to={link}>
                         Tiếp Tục
                     </Link>
+                </Button>  */}
+
+                <Button className={cx('btn-next')} onClick={handleBookingTicket}>
+                    Đặt vé
                 </Button>
             </div>
 
